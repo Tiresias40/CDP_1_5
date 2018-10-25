@@ -5,7 +5,7 @@ Application Web-UI avec base de données (SQL). Html-CSS-javascript (Bootstrap).
 Le backlog couvre 2 rôles : Développeur (Dev) & Visiteur (V)
 
 | Id | Description | Priorité | Difficulté | Sprint |
-| --- | --- | --- | --- |
+| --- | --- | --- | --- | --- |
 | 1 | En tant que V, je souhaite créer un compte sur l'outil afin de participer à des projets. | | 2 | 1 |
 | 2 | En tant que V, je souhaite me connecter / déconnecter en tant que Dev afin d'accéder à l'outil. | | 2 | 1 |
 | 3 | En tant que Dev, je souhaite créer un nouveau projet sur l'outil. | | 1 | 1 |
