@@ -1,40 +1,43 @@
 # Backlog
 
-Application Web-UI avec base de données (SQL). Html-CSS-javascript (Bootstrap). Serveur python (Flask). \\[|]/
+Application Web-UI avec base de données (SQL). Html-CSS-javascript (Bootstrap). Serveur python (Flask).
 
-Le backlog couvre 2 rôles : Chef de projet (CP) & Développeur (Dev)
+Le backlog couvre 2 rôles : Développeur (Dev) & Visiteur (V)
 
-| Id | Description | Priorité | Difficulté | Dépendances |
-| --- | --- | --- | --- | --- |
-| 1 | En tant que Dev / CP, je souhaite me connecter / déconnecter afin d'accéder à l'outil. | | | |
-| 2 | En tant que CP, je souhaite ajouter / modifier / supprimer une issue afin de gérer le backlog. | | | |
-| 3 | En tant que Dev, je souhaite visualiser le backlog afin de connaître les issues de mon projet. | | | |
-| 4 | En tant que Dev, je souhaite exporter le backlog afin d'y accéder hors ligne. | | | |
-| 5 | En tant que CP, je souhaite ajouter / modifier / supprimer un composant afin de concevoir l'architecture de mon projet. | | | |
-| 6 | En tant que Dev, je souhaite visualiser la liste des composants afin de connaître leurs détails. | | | |
-| 7 | En tant que Dev, je souhaite exporter la liste des composants afin d'y accéder hors ligne. | | | |
-| 8 | En tant que CP, je souhaite créer / modifier le tableau d'estimation du coût en jour/homme des tâches afin d'organiser mon projet. | | | |
-| 9 | En tant que CP, je souhaite ajouter une dépendance à une tâche afin de générer automatiquement le graphe de dépendances des tâches. | | | |
-| 10 | En tant que CP, je souhaite créer un diagramme de Pert à partir du graphe de dépendances des tâches afin de prévoir les deadlines de mon projet et d'estimer le nombre de développeurs nécessaires. | | | |
-| 11 | En tant que CP, je souhaite construire / modifier un planning afin d'assigner les tâches aux développeurs. | | | |
-| 12 | En tant que Dev, je souhaite visualiser le planning afin de connaître mes tâches. | | | |
-| 13 | En tant que Dev, je souhaite exporter le planning afin d'y accéder hors ligne. | | | |
-| 14 | En tant que CP, je souhaite écrire des scénarios de tests afin de vérifier si le projet correspond aux issues. | | | |
-| 15 | En tant que Dev, je souhaite consulter les scénarios de tests afin de les implémenter. | | | |
-| 16 | En tant que Dev, je souhaite importer le résultat d'un test associé à un scénario afin de garder une trace de ce résultat. | | | |
-| 17 | En tant que CP, je souhaite pouvoir suivre les résultats des scénarios de tests afin de savoir s'ils sont passés ou non. | | | |
-| 18 | En tant que CP, je souhaite écrire une nomenclature du code afin d'assurer un code propre dans le projet. | | | |
-| 19 | En tant que Dev, je souhaite visualiser la nomenclature du code afin de coder selon les normes établies par le CP. | | | |
-| 20 | En tant que CP, je souhaite ajouter les résultats d'un linter afin de suivre la propreté du code fichier par fichier. | | | |
-| 21 | En tant que Dev, je souhaite accéder aux résultats d'un linter pour un fichier afin de le corriger et le rendre pur. | | | |
-| 22 | En tant que CP, je souhaite écrire une nomenclature de la documentation afin d'assurer une documentation propre dans le projet. | | | |
-| 23 | En tant que Dev, je souhaite visualiser la nomenclature de la documentation afin de documenter selon les normes établies par le CP. | | | |
-| 24 | En tant que CP, je souhaite ajouter de la documentation concernant l'environnement du projet afin de donner toutes les informations nécessaires à mes développeurs. | | | |
-| 25 | En tant que Dev, je souhaite visualiser la documentation concernant l'environnement du projet afin de le mener à bien. | | | |
-| 26 | En tant que CP, je souhaite ajouter une release à la liste de celles-ci afin de garder une trace de mes progrès. | | | |
-| 27 | En tant que Dev, je souhaite visualiser la liste des releases afin de voir l'historique de notre projet. | | | |
+| Id | Description | Priorité | Difficulté | Sprint |
+| --- | --- | --- | --- |
+| 1 | En tant que V, je souhaite créer un compte sur l'outil afin de participer à des projets. | | 2 | 1 |
+| 2 | En tant que V, je souhaite me connecter / déconnecter en tant que Dev afin d'accéder à l'outil. | | 2 | 1 |
+| 3 | En tant que Dev, je souhaite créer un nouveau projet sur l'outil. | | 1 | 1 |
+| 4 | En tant que Dev, je souhaite ajouter / supprimer un nouveau Dev au projet. | | 1 | 1 |
+| 5 | En tant que Dev, je souhaite ajouter / modifier / supprimer une issue au backlog du projet correspondant. | | 1 | 1 |
+| 6 | En tant que Dev, je souhaite ajouter / supprimer un sprint à un projet. | | 1 | 2 |
+| 7 | En tant que Dev, je souhaite ajouter / modifier / supprimer une tâche dans un sprint. | | 1 | 2 |
+| 8 | En tant que Dev, je souhaite générer le tableau d'estimation du coût en jour/homme des tâches afin d'organiser mon projet. | | 1 | 2 |
+| 9 | En tant que Dev, je souhaite construire / modifier un planning afin d'assigner les tâches aux développeurs. | | 3 | 3 |
+| 10 | En tant que Dev, je souhaite écrire des scénarios de tests afin de vérifier si le projet correspond aux issues. | | 1 | 2 |
+| 11 | En tant que Dev, je souhaite consulter les scénarios de tests afin de les implémenter. | | 1 | 2 |
+| 12 | En tant que Dev, je souhaite importer le résultat d'un test associé à un scénario afin de garder une trace de ce résultat. | | 2 | 3 |
+| 13 | En tant que Dev, je souhaite écrire une nomenclature du code. | | 1 | 3 |
+| 14 | En tant que Dev, je souhaite écrire une nomenclature de la documentation. | | 1 | 3 |
+| 15 | En tant que Dev, je souhaite ajouter de la documentation concernant l'environnement du projet afin de permettre à d'autres développeurs de travailler dessus facilement. | | 1 | 3 |
+| 16 | En tant que Dev, je souhaite ajouter une release à la liste de celles-ci afin de garder une trace de mes progrès. | | 2 | 3 |
 
 # Annexes
+
+### Compte :
+* Nom
+* Mot de passe
+* Projets (nul à la création)
+
+### Projet :
+* Backlog
+* Sprints
+* Tests
+* Nomenclature Code
+* Nomenclature Documentation
+* Documentation sur l'environnement
+* Releases
 
 ### Issue :
 * Id
@@ -46,17 +49,22 @@ Le backlog couvre 2 rôles : Chef de projet (CP) & Développeur (Dev)
 ### Backlog :
 * Liste d'issues
 
-### Composant :
+### Sprint :
 * Id
-* Nom du fichier
-* Description
-* Dépendances avec les autres composants
+* Date de début (à renseigner lors de la création du premier sprint)
+* Date de fin
+* Liste de tâches
 
-### Tâches :
-* Définition de l'interface d'un composant
-* Réalisation d'un composant
-* Ecriture d'un scénario de test d'une issue
-* Exécution d'un scénario de test d'une issue
+### Tâche :
+* Id
+* Nom du composant associé
+* Description
+* Coût en jour / homme
+* Status (A faire, En cours, Fait)
+
+### Test :
+* Scénario de test
+* Résultat de test
 
 ### Scénario d'un test :
 * Liste d'actions que l'utilisateur effectue pour vérifier q'une issue est respectée
@@ -70,4 +78,4 @@ Le backlog couvre 2 rôles : Chef de projet (CP) & Développeur (Dev)
 ### Release :
 * N° de version
 * Date
-* Issues / Tâches implémentées
+* Issues implémentées
