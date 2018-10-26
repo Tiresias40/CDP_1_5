@@ -24,11 +24,12 @@ Le backlog couvre 2 rôles : Développeur (Dev) & Visiteur (V)
 | 16 | En tant que Dev, je souhaite ajouter une release à la liste de celles-ci afin de garder une trace de mes progrès. | | 2 | 3 |
 
 # Annexes
+Les éléments optionnels sur les différentes notions sont en italic.
 
 ### Compte :
 * Nom
 * Mot de passe
-* Projets (nul à la création)
+* *Projets (nul à la création)*
 
 ### Projet :
 * Backlog
@@ -36,7 +37,7 @@ Le backlog couvre 2 rôles : Développeur (Dev) & Visiteur (V)
 * Tests
 * Nomenclature Code
 * Nomenclature Documentation
-* Documentation sur l'environnement
+* *Documentation sur l'environnement*
 * Releases
 
 ### Issue :
@@ -44,15 +45,15 @@ Le backlog couvre 2 rôles : Développeur (Dev) & Visiteur (V)
 * Description
 * Priorité
 * Difficulté
-* Dépendances
+* *Dépendances*
 
 ### Backlog :
 * Liste d'issues
 
 ### Sprint :
 * Id
-* Date de début (à renseigner lors de la création du premier sprint)
-* Date de fin
+* *Date de début (à renseigner lors de la création du premier sprint)*
+* *Date de fin*
 * Liste de tâches
 
 ### Tâche :
