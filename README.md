@@ -16,7 +16,7 @@ Le backlog couvre 2 rôles : Développeur (Dev) & Visiteur (V)
 | 8 | En tant que Dev, je souhaite générer le tableau d'estimation du coût en jour/homme des tâches afin d'organiser mon projet. | | 1 | 2 |
 | 9 | En tant que Dev, je souhaite construire / modifier un planning afin d'assigner les tâches aux développeurs. | | 3 | 3 |
 | 10 | En tant que Dev, je souhaite accéder à un tableau affichant les status des tâches séparées en trois colonnes (TODO, DOING, DONE). | | 2 | 3 |
-| 11 | En tant que Dev, je souhaite accéder au Burn Down Chart d'un sprint donné. | | 3 | 3 |
+| 11 | En tant que Dev, je souhaite accéder au Burn Down Chart afin de visualiser le travail restant. | | 3 | 3 |
 | 12 | En tant que Dev, je souhaite écrire des scénarios de tests afin de vérifier si le projet correspond aux issues. (Optionnel) | | 1 | 3 |
 | 13 | En tant que Dev, je souhaite consulter les scénarios de tests afin de les implémenter. (Optionnel) | | 1 | 3 |
 | 14 | En tant que Dev, je souhaite importer le résultat d'un test associé à un scénario afin de garder une trace de ce résultat. (Optionnel) | | 2 | 3 |
