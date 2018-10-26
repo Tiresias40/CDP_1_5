@@ -6,24 +6,24 @@ Le backlog couvre 2 rôles : Développeur (Dev) & Visiteur (V)
 
 | Id | Description | Priorité | Difficulté | Sprint |
 | --- | --- | --- | --- | --- |
-| 1 | En tant que V, je souhaite créer un compte sur l'outil afin de participer à des projets. | | 2 | 1 |
-| 2 | En tant que V, je souhaite me connecter / déconnecter en tant que Dev afin d'accéder à l'outil. | | 2 | 1 |
-| 3 | En tant que Dev, je souhaite créer un nouveau projet sur l'outil. | | 1 | 1 |
-| 4 | En tant que Dev, je souhaite ajouter / supprimer un nouveau Dev au projet. | | 1 | 1 |
-| 5 | En tant que Dev, je souhaite ajouter / modifier / supprimer une issue au backlog du projet correspondant. | | 1 | 1 |
-| 6 | En tant que Dev, je souhaite ajouter / supprimer un sprint à un projet. | | 1 | 2 |
-| 7 | En tant que Dev, je souhaite ajouter / modifier / supprimer une tâche dans un sprint. | | 1 | 2 |
-| 8 | En tant que Dev, je souhaite générer le tableau d'estimation du coût en jour/homme des tâches afin d'organiser mon projet. | | 1 | 2 |
-| 9 | En tant que Dev, je souhaite construire / modifier un planning afin d'assigner les tâches aux développeurs. | | 3 | 3 |
-| 10 | En tant que Dev, je souhaite accéder à un tableau affichant les status des tâches séparées en trois colonnes (TODO, DOING, DONE). | | 2 | 3 |
-| 11 | En tant que Dev, je souhaite accéder au Burn Down Chart afin de visualiser le travail restant. | | 3 | 3 |
-| 12 | En tant que Dev, je souhaite écrire des scénarios de tests afin de vérifier si le projet correspond aux issues. (Optionnel) | | 1 | 3 |
-| 13 | En tant que Dev, je souhaite consulter les scénarios de tests afin de les implémenter. (Optionnel) | | 1 | 3 |
-| 14 | En tant que Dev, je souhaite importer le résultat d'un test associé à un scénario afin de garder une trace de ce résultat. (Optionnel) | | 2 | 3 |
-| 15 | En tant que Dev, je souhaite écrire une nomenclature du code. (Optionnel) | | 1 | 3 |
-| 16 | En tant que Dev, je souhaite écrire une nomenclature de la documentation. (Optionnel) | | 1 | 3 |
-| 17 | En tant que Dev, je souhaite ajouter de la documentation concernant l'environnement du projet afin de permettre à d'autres développeurs de travailler dessus facilement. (Optionnel) | | 1 | 3 |
-| 18 | En tant que Dev, je souhaite ajouter une release à la liste de celles-ci afin de garder une trace de mes progrès. (Optionnel) | | 2 | 3 |
+| 1 | En tant que V, je souhaite créer un compte sur l'outil afin de participer à des projets. | Moyenne | 2 | 1 |
+| 2 | En tant que V, je souhaite me connecter / déconnecter en tant que Dev afin d'accéder à l'outil. | Moyenne | 2 | 1 |
+| 3 | En tant que Dev, je souhaite créer un nouveau projet sur l'outil. | Haute | 1 | 1 |
+| 4 | En tant que Dev, je souhaite ajouter / supprimer un nouveau Dev au projet. | Moyenne | 1 | 1 |
+| 5 | En tant que Dev, je souhaite ajouter / modifier / supprimer une issue au backlog du projet correspondant. | Haute | 1 | 1 |
+| 6 | En tant que Dev, je souhaite ajouter / supprimer un sprint à un projet. | Haute | 1 | 2 |
+| 7 | En tant que Dev, je souhaite ajouter / modifier / supprimer une tâche dans un sprint. | Haute | 1 | 2 |
+| 8 | En tant que Dev, je souhaite générer le tableau d'estimation du coût en jour/homme des tâches afin d'organiser mon projet. | Basse | 1 | 2 |
+| 9 | En tant que Dev, je souhaite construire / modifier un planning afin d'assigner les tâches aux développeurs. | Basse | 3 | 3 |
+| 10 | En tant que Dev, je souhaite accéder à un tableau affichant les status des tâches séparées en trois colonnes (TODO, DOING, DONE). | Basse | 2 | 3 |
+| 11 | En tant que Dev, je souhaite accéder au Burn Down Chart afin de visualiser le travail restant. | Basse | 3 | 3 |
+| 12 | En tant que Dev, je souhaite écrire des scénarios de tests afin de vérifier si le projet correspond aux issues. (Optionnel) | Basse | 1 | 3 |
+| 13 | En tant que Dev, je souhaite consulter les scénarios de tests afin de les implémenter. (Optionnel) | Basse | 1 | 3 |
+| 14 | En tant que Dev, je souhaite importer le résultat d'un test associé à un scénario afin de garder une trace de ce résultat. (Optionnel) | Basse | 2 | 3 |
+| 15 | En tant que Dev, je souhaite écrire une nomenclature du code. (Optionnel) | Basse | 1 | 3 |
+| 16 | En tant que Dev, je souhaite écrire une nomenclature de la documentation. (Optionnel) | Basse | 1 | 3 |
+| 17 | En tant que Dev, je souhaite ajouter de la documentation concernant l'environnement du projet afin de permettre à d'autres développeurs de travailler dessus facilement. (Optionnel) | Basse | 1 | 3 |
+| 18 | En tant que Dev, je souhaite ajouter une release à la liste de celles-ci afin de garder une trace de mes progrès. (Optionnel) | Basse | 2 | 3 |
 
 # Annexes
 Les éléments optionnels sont en italique.
