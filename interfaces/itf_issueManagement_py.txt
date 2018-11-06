@@ -1,0 +1,8 @@
+Nom du fichier  : issueManagement.py
+
+## [nom_fonction]([nb_arguments])
+
+Fonctions :
+	- addIssue(1)
+	- modifyIssue(1)
+	- deleteIssue(1)
