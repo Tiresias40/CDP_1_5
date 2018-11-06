@@ -1,0 +1,43 @@
+Nom du fichier : database.py
+
+PK : Primary key
+FK : Foreign Key
+
+Table :
+	- TYPE 				Colonne 	(FK / PK)
+
+Users :
+	- INT 				Id 			(PK)
+	- VARCHAR(50) 		Password
+
+Projects :
+	- INT				Id 			(PK)
+	- VARCHAR(20)		Name
+
+Issues :
+	- INT				Id 			(PK)
+	- TEXT				Description
+	- VARCHAR(10)		Priority
+	- INT				Difficulty
+	- INT				Sprint_Id
+	- INT				Project_Id 	(FK : Projects->Id)
+	
+Sprints :
+	- INT				Id 			(PK)
+	- DATE				Begin_Date
+	- DATE				End_Date
+	- INT				Project_Id 	(FK : Projects->Id)
+
+Tasks :
+	- INT				Id			(PK)
+	- VARCHAR(5)		Name
+	- TEXT				Description
+	- FLOAT				Costs
+	- VARCHAR(5)		Status
+	- INT				Sprint_Id	(FK : Sprints->Id)
+	- VARCHAR(50)		Dependencies
+
+Developers :
+	- INT				User_Id		(FK : Users->Id)
+	- INT				Project_Id	(FK : Project->Id)
+	- INT / INT			Couple des deux id	(PK)
