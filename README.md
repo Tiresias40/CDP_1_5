@@ -17,13 +17,12 @@ Le backlog couvre 2 rôles : Développeur (Dev) & Visiteur (V)
 | 9 | En tant que Dev, je souhaite construire / modifier un planning afin d'assigner les tâches aux développeurs. | Basse | 3 | 3 |
 | 10 | En tant que Dev, je souhaite accéder à un tableau affichant les status des tâches séparées en trois colonnes (TODO, DOING, DONE). | Basse | 2 | 3 |
 | 11 | En tant que Dev, je souhaite accéder au Burn Down Chart afin de visualiser le travail restant. | Basse | 3 | 3 |
-| 12 | En tant que Dev, je souhaite écrire des scénarios de tests afin de vérifier si le projet correspond aux issues. (Optionnel) | Basse | 1 | 3 |
-| 13 | En tant que Dev, je souhaite consulter les scénarios de tests afin de les implémenter. (Optionnel) | Basse | 1 | 3 |
-| 14 | En tant que Dev, je souhaite importer le résultat d'un test associé à un scénario afin de garder une trace de ce résultat. (Optionnel) | Basse | 2 | 3 |
-| 15 | En tant que Dev, je souhaite écrire une nomenclature du code. (Optionnel) | Basse | 1 | 3 |
-| 16 | En tant que Dev, je souhaite écrire une nomenclature de la documentation. (Optionnel) | Basse | 1 | 3 |
-| 17 | En tant que Dev, je souhaite ajouter de la documentation concernant l'environnement du projet afin de permettre à d'autres développeurs de travailler dessus facilement. (Optionnel) | Basse | 1 | 3 |
-| 18 | En tant que Dev, je souhaite ajouter une release à la liste de celles-ci afin de garder une trace de mes progrès. (Optionnel) | Basse | 2 | 3 |
+| 12 | En tant que Dev, je souhaite écrire des scénarios de tests. | Basse | 1 | 2 |
+| 13 | En tant que Dev, je souhaite consulter les scénarios de tests afin de les implémenter. | Basse | 1 | 2 |
+| 14 | En tant que Dev, je souhaite ajouter les résultats d'un test associé à un scénario afin de garder une trace de ce résultat. | Basse | 2 | 2 |
+| 15 | En tant que Dev, je souhaite écrire une nomenclature du code. | Basse | 1 | 3 |
+| 16 | En tant que Dev, je souhaite ajouter de la documentation concernant l'environnement du projet afin de permettre à d'autres développeurs de travailler dessus facilement. | Basse | 1 | 3 |
+| 17 | En tant que Dev, je souhaite ajouter une release à la liste de celles-ci afin de garder une trace de mes progrès. | Basse | 2 | 3 |
 
 # Annexes
 Les éléments optionnels sont en italique.
