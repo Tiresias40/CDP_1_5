@@ -81,3 +81,9 @@ Les éléments optionnels sont en italique.
 * N° de version
 * Date
 * Issues implémentées
+
+
+
+Pour lancer le projet :
+docker run -p 5000:5000 leduclouis/cdp1.5:0.1
+aller ensuite sur localhost:5000
