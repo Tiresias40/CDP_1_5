@@ -7,7 +7,11 @@
 from flask import Flask, render_template_string
 from flask_sqlalchemy import SQLAlchemy
 from flask_user import login_required, UserManager, UserMixin
+import sys
 import os
+sys.path.insert(0, os.getcwd()+"/database")
+sys.path.insert(1, os.getcwd()+"/templates")
+import database
 
 
 # Class-based application configuration
@@ -38,28 +42,9 @@ def create_app():
     # Initialize Flask-SQLAlchemy
     db = SQLAlchemy(app)
 
-    # Define the User data-model.
-    # NB: Make sure to add flask_user UserMixin !!!
-    class User(db.Model, UserMixin):
-        __tablename__ = 'users'
-        id = db.Column(db.Integer, primary_key=True)
-        active = db.Column('is_active', db.Boolean(), nullable=False, server_default='1')
+    #include All models made on DB analysis step, setup Flask-User and specify the User data-model
+    db = database.initAllTablesAndSetupUserManager(app,db)
 
-        # User authentication information. The collation='NOCASE' is required
-        # to search case insensitively when USER_IFIND_MODE is 'nocase_collation'.
-        username = db.Column(db.String(100, collation='NOCASE'), nullable=False, unique=True)
-        password = db.Column(db.String(255), nullable=False, server_default='')
-        email_confirmed_at = db.Column(db.DateTime())
-
-        # User information
-        first_name = db.Column(db.String(100, collation='NOCASE'), nullable=False, server_default='')
-        last_name = db.Column(db.String(100, collation='NOCASE'), nullable=False, server_default='')
-
-    # Create all database tables
-    db.create_all()
-
-    # Setup Flask-User and specify the User data-model
-    user_manager = UserManager(app, db, User)
 
     # The Home page is accessible to anyone
     @app.route('/')
@@ -86,13 +71,34 @@ def create_app():
             {% extends "flask_user_layout.html" %}
             {% block content %}
                 <h2>Members page</h2>
-                <p><a href={{ url_for('user.register') }}>Register</a></p>
-                <p><a href={{ url_for('user.login') }}>Sign in</a></p>
                 <p><a href={{ url_for('home_page') }}>Home page</a> (accessible to anyone)</p>
                 <p><a href={{ url_for('member_page') }}>Member page</a> (login required)</p>
                 <p><a href={{ url_for('user.logout') }}>Sign out</a></p>
+                <p><a href={{ url_for('issues_page') }}>Issues</a> </p>
+                <p><a href={{ url_for('management_page') }}>Management</a> </p>
             {% endblock %}
             """)
+
+    #test including html pages from a template dir
+
+    @app.route('/issuesPage')
+    def issues_page():
+        return render_template_string("""
+            {% include "issues.html" %}
+            {% block content %}
+                <h2> ending IssuetestPage </h2>
+            {% endblock %}
+        """)
+
+
+    @app.route('/managementPage')
+    def management_page():
+        return render_template_string("""
+            {% include "devManagement.html" %}
+            {% block content %}
+                <h2> ending Management test Page </h2>
+            {% endblock %}
+        """)
 
     return app
 
