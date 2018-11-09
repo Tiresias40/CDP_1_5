@@ -74,6 +74,7 @@ def create_app():
                 <p><a href={{ url_for('home_page') }}>Home page</a> (accessible to anyone)</p>
                 <p><a href={{ url_for('member_page') }}>Member page</a> (login required)</p>
                 <p><a href={{ url_for('user.logout') }}>Sign out</a></p>
+                <p><a href={{ url_for('projects_page') }}>Projets</a> </p>
                 <p><a href={{ url_for('issues_page') }}>Issues</a> </p>
                 <p><a href={{ url_for('management_page') }}>Management</a> </p>
             {% endblock %}
@@ -91,10 +92,14 @@ def create_app():
         """)
 
     @app.route('/projectsPage')
-    def issues_page():
+    def projects_page():
+        projects = projectManagement.getProjectWorkspace()
         return render_template_string("""
             {% include "index.html" %}
-        """)
+            {% block content %}
+                {{ listProject }}
+            {% endblock %}
+        """, listProject = projects)
 
 
     @app.route('/managementPage')
