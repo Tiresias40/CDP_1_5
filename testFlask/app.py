@@ -12,7 +12,7 @@ import os
 sys.path.insert(0, os.getcwd()+"/database")
 sys.path.insert(1, os.getcwd()+"/templates")
 import database
-import prokectManagement
+import projectManagement
 
 
 # Class-based application configuration

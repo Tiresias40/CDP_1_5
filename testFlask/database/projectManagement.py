@@ -2,7 +2,7 @@
 from flask_sqlalchemy import SQLAlchemy
 import uuid
 import json
-
+import database
 db =SQLAlchemy()
 
 def addProject(projectName):
@@ -13,5 +13,6 @@ def addProject(projectName):
 
 
 def getProjectWorkspace():
-    return json.dump(Project.query.all())
+    sql= "Select * from projects"
+    return json.dumps(db.engine.execute(sql))
 # TODO def getUserWorkspace
