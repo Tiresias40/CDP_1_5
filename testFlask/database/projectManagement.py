@@ -1,14 +1,17 @@
 # projectManagement.py
 from flask_sqlalchemy import SQLAlchemy
-from . import *
+import uuid
+import json
+
+db =SQLAlchemy()
+
+def addProject(projectName):
+    sql= "INSERT INTO projects (id,name) VALUES (1,'"+projectName+"')"
+    result =db.engine.execute(sql)
+
+#def modifyProject(name):
 
 
-def addProject(name):
-
-
-def modifyProject(name):
-
-
-# TODO def checkUser():
-
-# TODO def getUserWorkspace():
+def getProjectWorkspace():
+    return json.dump(Project.query.all())
+# TODO def getUserWorkspace

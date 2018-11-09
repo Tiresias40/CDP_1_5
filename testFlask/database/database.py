@@ -1,6 +1,12 @@
 # database.py
 
 from flask_user import  UserManager, UserMixin
+from flask_sqlalchemy import SQLAlchemy
+import uuid
+
+#db = SQLAlchemy()
+
+
 
 def initAllTablesAndSetupUserManager(app,db):
 
@@ -8,7 +14,7 @@ def initAllTablesAndSetupUserManager(app,db):
     # NB: Make sure to add flask_user UserMixin !!!
     class User(db.Model, UserMixin):
         __tablename__ = 'users'
-        id = db.Column(db.Integer, primary_key=True)
+        id = db.Column(db.Integer, primary_key=True, unique=True)
         active = db.Column('is_active', db.Boolean(), nullable=False, server_default='1')
 
         # User authentication information. The collation='NOCASE' is required
@@ -33,6 +39,25 @@ def initAllTablesAndSetupUserManager(app,db):
         sprint_id = db.Column(db.Integer)
         project_id = db.Column(db.Integer, db.ForeignKey('projects.id'), nullable=False)
 
+        def __repr__(self):
+            return '<Issue %r %r %r>' % (self.id, self.description, self.priority)
+
+    # Define the Project data-model.
+    # NB:
+    class Project(db.Model):
+        __tablename__ = 'projects'
+        id = db.Column( db.Integer, primary_key=True)
+        name = db.Column(db.String(20), nullable=False)
+        # foreign keys relationship usefull for simple query acces
+        sprints = db.relationship('Sprint', backref='projects')
+        issues = db.relationship('Issue', backref='projects')
+
+        def __init__(self, name):
+            self.name= name
+
+        def __repr__(self):
+            return '<Project %r %r>' % (self.id, self.name)
+
 
 
     # Define the Sprint data-model.
@@ -45,15 +70,8 @@ def initAllTablesAndSetupUserManager(app,db):
         project_id = db.Column(db.Integer, db.ForeignKey('projects.id'), nullable=False)
         tasks = db.relationship('Task', backref='sprints')
 
-    # Define the Project data-model.
-    # NB:
-    class Project(db.Model):
-        __tablename__ = 'projects'
-        id = db.Column(db.Integer, primary_key=True)
-        name = db.Column(db.String(20), nullable=False, unique=True)
-        # foreign keys relationship usefull for simple query acces
-        sprints = db.relationship('Sprint', backref='projects')
-        issues = db.relationship('Issue', backref='projects')
+        def __repr_(self):
+            return '<Sprint %r %r %r %r %r>' % (self.id, self.begin_date, self.end_date, self.id, self.tasks)
 
 
     # Define the Task data-model.
