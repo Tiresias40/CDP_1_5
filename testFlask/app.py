@@ -86,8 +86,14 @@ def create_app():
         return render_template_string("""
             {% include "issues.html" %}
             {% block content %}
-                <h2> ending IssuetestPage </h2>
+                <h2> ending Issue test Page </h2>
             {% endblock %}
+        """)
+
+    @app.route('/projectsPage')
+    def issues_page():
+        return render_template_string("""
+            {% include "index.html" %}
         """)
 
 
