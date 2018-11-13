@@ -1,8 +1,10 @@
 Nom du fichier : projectManagement.py
 
-## [nom_fonction]([nb_arguments])
+## nom_fonction (nb_arguments)
+
 Fonctions :
-	- addProject(1)
-	- modifyProject(1)
-	- deleteProject(1)
-	- getProjectWorkspace(1)
+	- addProject (1 args)
+	- modifyProjectNameById (2 args)
+	- modifyProjectNameByName (2 args)
+	- deleteProject (1 args)
+	- getProjectWorkspace ()

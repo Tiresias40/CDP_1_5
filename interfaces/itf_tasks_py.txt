@@ -1,0 +1,9 @@
+Nom du fichier : tasks.py
+
+## nom_fonction (nb_arguments)
+
+Fonctions :
+	- addTask (6 args)
+  - getTask (1 args)
+  - modifyTask (6 args)
+	- deleteTask (1 args)
