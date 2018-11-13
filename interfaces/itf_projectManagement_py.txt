@@ -4,6 +4,7 @@ Nom du fichier : projectManagement.py
 
 Fonctions :
 	- addProject (1 args)
-	- modifyProject (1 args)
+	- modifyProjectNameById (2 args)
+	- modifyProjectNameByName (2 args)
 	- deleteProject (1 args)
-	- getProjectWorkspace (1 args)
+	- getProjectWorkspace ()

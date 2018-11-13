@@ -1,0 +1,7 @@
+Nom du fichier : sprints.py
+
+## nom_fonction (nb_arguments)
+
+Fonctions :
+	- addSprint (3 args)
+	- deleteSprint (1 args)
