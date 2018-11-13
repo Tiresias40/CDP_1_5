@@ -4,11 +4,53 @@
     <head>
         <meta charset="utf-8" />
         <title>Projets</title>
+        <!-- Bootstrap core CSS -->
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"> </script>
+        <!--<script type="text/javascript" src="/projectManagement.js"> </script> -->
+
+
     </head>
     <body>
-        <div id="addProject">
-            <input type="text" id="projectname" name="projectname">
-            <button type="button">Ajouter un projet</button>
+        <h2>Ajout d'un nouveau projet </h2>
+        <div class="container" id="addProject">
+          <form action="/addProject" method="Post" role="form">
+            <input type="text" id="projectname" name="projectname" class="form-control" required>
+            <button class="btn btn-lg btn-primary btn-block" type="button" >Ajouter un projet</button>
+          </form>
+
         </div>
+
+
+        <div class="container">
+          <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Project ID</th>
+        <th>Name</th>
+        <th>Developers</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+        </div>
+
+        <script type="text/javascript">
+        $(function() {
+            $('button').click(function() {
+                $.ajax({
+                    url: '/addProject',
+                    data: $('form').serialize(),
+                    type: 'POST',
+                    success: function(response) {
+                        console.log(response);
+                    },
+                    error: function(error) {
+                        console.log(error);
+                    }
+                });
+            });
+        }); </script>
     </body>
 </html>

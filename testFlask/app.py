@@ -4,7 +4,7 @@
 # - Using class-based configuration (instead of file-based configuration)
 # - Using string-based templates (instead of file-based templates)
 
-from flask import Flask, render_template_string
+from flask import Flask, render_template_string, request, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_user import login_required, UserManager, UserMixin
 import sys
@@ -13,6 +13,8 @@ sys.path.insert(0, os.getcwd()+"/database")
 sys.path.insert(1, os.getcwd()+"/templates")
 import database
 import projectManagement
+import devManagement
+import json
 
 
 # Class-based application configuration
@@ -27,7 +29,7 @@ class ConfigClass(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False    # Avoids SQLAlchemy warning
 
     # Flask-User settings
-    USER_APP_NAME = "Flask-User QuickStart App"      # Shown in and email templates and page footers
+    USER_APP_NAME = "Scrum Tool App"      # Shown in and email templates and page footers
     USER_ENABLE_EMAIL = False      # Disable email authentication
     USER_ENABLE_USERNAME = True    # Enable username authentication
     USER_REQUIRE_RETYPE_PASSWORD = False    # Simplify register form
@@ -46,6 +48,8 @@ def create_app():
     #include All models made on DB analysis step, setup Flask-User and specify the User data-model
     db = database.initAllTablesAndSetupUserManager(app,db)
 
+    # Setup Flask-User and specify the User data-model
+    user_manager = UserManager(app, db, database.User)
 
     # The Home page is accessible to anyone
     @app.route('/')
@@ -97,18 +101,53 @@ def create_app():
         projects = projectManagement.getProjectWorkspace()
         return render_template_string("""
             {% include "index.html" %}
-            {% block content %}
-                {{ listProject }}
+            {%  block content %}
+            {{ listProject }}
             {% endblock %}
         """, listProject = projects)
 
 
+    @app.route('/addProject', methods=['POST'])
+    def add_project():
+        projectName = request.form['projectname']
+        projectManagement.addProject(projectName)
+        return (render_template('index.html'))
+
+
+    @app.route('/addDev')
+    def add_dev():
+        devManagement.addDev('Test 1', 'nezout')
+        return render_template_string("""
+            {% block content %}
+                <h2> OK Ajout nezout</h2>
+            {% endblock %}
+        """)
+
+
     @app.route('/managementPage')
     def management_page():
+        #projectManagement.addProject('Test 1')
+        #projectManagement.addProject('Test 2')
+
+        devSearched = devManagement.searchDev('nezout')
+
         return render_template_string("""
             {% include "devManagement.html" %}
             {% block content %}
-                <h2> ending Management test Page </h2>
+                <h2> Dev Management Page </h2>
+                <p><a href={{ url_for('add_dev') }}>Add Developer</a> </p>
+                <p><a href={{ url_for('delete_confirm') }}>Delete Developer</a> </p>
+
+                {{nezoutDev}}
+            {% endblock %}
+        """, nezoutDev= devSearched)
+
+    @app.route('/deleteDev')
+    def delete_confirm():
+        devManagement.deleteDev('nezout', 'Test 1')
+        return render_template_string("""
+            {%  block content %}
+                <h2> Dev supprime </h2>
             {% endblock %}
         """)
 
