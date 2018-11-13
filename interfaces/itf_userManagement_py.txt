@@ -1,8 +1,0 @@
-Nom du fichier : userManagement.py
-
-Noms des fonctions : 
-	- addUser (2 args)
-	- deleteUser (1 arg)
-	- modifyUser (2 args)
-	- checkUser (1 arg)
-	- getUserWorkspace (1 arg)

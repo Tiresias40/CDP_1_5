@@ -1,0 +1,13 @@
+Nom du fichier : tests.py
+
+## nom_fonction (nb_arguments)
+
+Fonctions :
+    - addTest (1 args)
+    - getTest (1 args)
+    - listTests ()
+    - modifyTest (2 args)
+    - removeTest (1 args)
+    - addResult (3 args)
+    - modifyResult (4 args)
+    - removeResult (2 args)
