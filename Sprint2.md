@@ -6,6 +6,8 @@ BD : base de données
 
 Dev : développeur / utilisateur dans la BD
 
+lien vers le Trello : https://trello.com/b/ONLkJXed
+
 ## Tâches du Sprint 1 :
 
 | Id | Composant | Description | Coût (en jour/homme) |
