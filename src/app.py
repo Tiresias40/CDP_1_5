@@ -58,6 +58,11 @@ def create_app():
         return render_template_string("""
             {% include "navSimple.html" %}
             {% extends "flask_user_layout.html" %}
+            {% block content %}
+                <h2>Home page</h2>
+                <p><a href={{ url_for('user.register') }}>Register</a></p>
+                <p><a href={{ url_for('user.login') }}>Sign in</a></p>
+            {% endblock %}
             """)
 
     # The Members page is only accessible to authenticated users via the @login_required decorator
