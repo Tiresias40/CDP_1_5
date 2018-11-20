@@ -57,14 +57,7 @@ def create_app():
         # String-based templates
         return render_template_string("""
             {% extends "flask_user_layout.html" %}
-            {% block content %}
-                <h2>Home page</h2>
-                <p><a href={{ url_for('user.register') }}>Register</a></p>
-                <p><a href={{ url_for('user.login') }}>Sign in</a></p>
-                <p><a href={{ url_for('home_page') }}>Home page</a> (accessible to anyone)</p>
-                <p><a href={{ url_for('member_page') }}>Member page</a> (login required)</p>
-                <p><a href={{ url_for('user.logout') }}>Sign out</a></p>
-            {% endblock %}
+            {% include "nav.html" %}
             """)
 
     # The Members page is only accessible to authenticated users via the @login_required decorator
@@ -117,6 +110,7 @@ def create_app():
             print str(e)
 
         return render_template_string("""
+            {% include "nav.html" %}
             {% extends "flask_user_layout.html" %}
             {%  block content %}
             {% include "index.html" %}
