@@ -19,7 +19,7 @@ class Serializer(object):
                 except TypeError:
                     o.__dict__[k] = str(v)
             return o
-        return json.dumps(check(obj).__dict__, indent=4)
+        return json.dumps(check(obj).__dict__)
 
 
 
@@ -92,7 +92,7 @@ class Task(db.Model):
     name = db.Column(db.String(5), nullable=False)
     description = db.Column(db.Text(), nullable=False)
     costs = db.Column(db.Float, nullable=True)
-    status = db.Column(db.String(5), nullable=False)
+    status = db.Column(db.String(5), nullable=False, server_default='TODO')
     sprint_id = db.Column(db.Integer, db.ForeignKey('sprints.id'), nullable=False)
     dependencies = db.Column(db.String(50), nullable=True)
 
