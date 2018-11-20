@@ -1,7 +1,8 @@
 Nom du fichier : devManagement.py
 
-## [nom_fonction]([nb_arguments])
+## nom_fonction (nb_arguments)
+
 Fonctions : 
-	- addDev(1)
-	- deleteDev(1)
-	- searchDev(2)
+	- addDev (1 args)
+	- deleteDev (1 args)
+	- searchDev (2 args)

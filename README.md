@@ -8,9 +8,9 @@ Le backlog couvre 2 rôles : Développeur (Dev) & Visiteur (V)
 | --- | --- | --- | --- | --- |
 | 1 | En tant que V, je souhaite créer un compte sur l'outil afin de participer à des projets. | Moyenne | 2 | 1 |
 | 2 | En tant que V, je souhaite me connecter / déconnecter en tant que Dev afin d'accéder à l'outil. | Moyenne | 2 | 1 |
-| 3 | En tant que Dev, je souhaite créer un nouveau projet sur l'outil. | Haute | 1 | 1 |
-| 4 | En tant que Dev, je souhaite ajouter / supprimer un nouveau Dev au projet. | Moyenne | 1 | 1 |
-| 5 | En tant que Dev, je souhaite ajouter / modifier / supprimer une issue au backlog du projet correspondant. | Haute | 1 | 1 |
+| 3 | En tant que Dev, je souhaite créer un nouveau projet sur l'outil. | Haute | 1 | 2 |
+| 4 | En tant que Dev, je souhaite ajouter / supprimer un nouveau Dev au projet. | Moyenne | 1 | 2 |
+| 5 | En tant que Dev, je souhaite ajouter / modifier / supprimer une US au backlog du projet correspondant. | Haute | 1 | 2 |
 | 6 | En tant que Dev, je souhaite ajouter / supprimer un sprint à un projet. | Haute | 1 | 2 |
 | 7 | En tant que Dev, je souhaite ajouter / modifier / supprimer une tâche dans un sprint. | Haute | 1 | 2 |
 | 8 | En tant que Dev, je souhaite générer le tableau d'estimation du coût en jour/homme des tâches afin d'organiser mon projet. | Basse | 1 | 2 |
@@ -41,7 +41,7 @@ Les éléments optionnels sont en italique.
 * *Documentation sur l'environnement*
 * *Releases*
 
-### Issue :
+### User Story (US) :
 * Id
 * Description
 * Priorité
@@ -49,7 +49,7 @@ Les éléments optionnels sont en italique.
 * *Dépendances*
 
 ### Backlog :
-* Liste d'issues
+* Liste d'US
 
 ### Sprint :
 * Id
@@ -69,7 +69,7 @@ Les éléments optionnels sont en italique.
 * Résultat de test
 
 ### Scénario d'un test :
-* Liste d'actions que l'utilisateur effectue pour vérifier q'une issue est respectée
+* Liste d'actions que l'utilisateur effectue pour vérifier q'une US est respectée
 
 ### Résultat d'un test :
 * Id
@@ -80,7 +80,7 @@ Les éléments optionnels sont en italique.
 ### Release :
 * N° de version
 * Date
-* Issues implémentées
+* US implémentées
 
 
 # Lancement du projet :

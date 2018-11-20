@@ -1,8 +1,8 @@
-Nom du fichier  : issueManagement.py
+Nom du fichier : issueManagement.py
 
-## [nom_fonction]([nb_arguments])
+## nom_fonction (nb_arguments)
 
 Fonctions :
-	- addIssue(1)
-	- modifyIssue(1)
-	- deleteIssue(1)
+	- addIssue (1 args)
+	- modifyIssue (1 args)
+	- deleteIssue (1 args)
