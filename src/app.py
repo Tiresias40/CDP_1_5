@@ -56,14 +56,12 @@ def create_app():
     def home_page():
         # String-based templates
         return render_template_string("""
+            {% include "navSimple.html" %}
             {% extends "flask_user_layout.html" %}
             {% block content %}
                 <h2>Home page</h2>
                 <p><a href={{ url_for('user.register') }}>Register</a></p>
                 <p><a href={{ url_for('user.login') }}>Sign in</a></p>
-                <p><a href={{ url_for('home_page') }}>Home page</a> (accessible to anyone)</p>
-                <p><a href={{ url_for('member_page') }}>Member page</a> (login required)</p>
-                <p><a href={{ url_for('user.logout') }}>Sign out</a></p>
             {% endblock %}
             """)
 
@@ -73,8 +71,8 @@ def create_app():
     def member_page():
         # String-based templates
         return render_template_string("""
-
-            {% include "nav.html" %}
+            {% include "navSimple.html" %}
+            {% extends "flask_user_layout.html" %}
             """)
 
     #test including html pages from a template dir
@@ -98,11 +96,17 @@ def create_app():
 
     @app.route('/issuesPage')
     def issues_page():
+        try:
+            issueList =[]
+            issue = issueManagement.getProjectWorkspace()
+            for issue in issues:
+                projectList.append(database.Serializer.serialize(pr))
+            projectList= str(projectList)
+        except Exception ,e:
+            print str(e)
         return render_template_string("""
+            {% include "nav.html" %}
             {% include "issues.html" %}
-            {% block content %}
-                <h2> ending Issue test Page </h2>
-            {% endblock %}
         """)
 
     @app.route('/projectsPage')
@@ -118,7 +122,7 @@ def create_app():
             print str(e)
 
         return render_template_string("""
-            {% extends "flask_user_layout.html" %}
+            {% include "navSimple.html" %}
             {%  block content %}
             {% include "index.html" %}
             <div id="listToDisplay">
@@ -155,6 +159,7 @@ def create_app():
         devSearched = devManagement.searchDev('nezout')
 
         return render_template_string("""
+            {% include "nav.html" %}
             {% include "devManagement.html" %}
             {% block content %}
                 <h2> Dev Management Page </h2>
