@@ -56,8 +56,8 @@ def create_app():
     def home_page():
         # String-based templates
         return render_template_string("""
+            {% include "navSimple.html" %}
             {% extends "flask_user_layout.html" %}
-            {% include "nav.html" %}
             """)
 
     # The Members page is only accessible to authenticated users via the @login_required decorator
@@ -66,8 +66,8 @@ def create_app():
     def member_page():
         # String-based templates
         return render_template_string("""
-
-            {% include "nav.html" %}
+            {% include "navSimple.html" %}
+            {% extends "flask_user_layout.html" %}
             """)
 
     #test including html pages from a template dir
@@ -91,11 +91,17 @@ def create_app():
 
     @app.route('/issuesPage')
     def issues_page():
+        try:
+            issueList =[]
+            issue = issueManagement.getProjectWorkspace()
+            for issue in issues:
+                projectList.append(database.Serializer.serialize(pr))
+            projectList= str(projectList)
+        except Exception ,e:
+            print str(e)
         return render_template_string("""
+            {% include "nav.html" %}
             {% include "issues.html" %}
-            {% block content %}
-                <h2> ending Issue test Page </h2>
-            {% endblock %}
         """)
 
     @app.route('/projectsPage')
@@ -110,8 +116,7 @@ def create_app():
             print str(e)
 
         return render_template_string("""
-            {% include "nav.html" %}
-            {% extends "flask_user_layout.html" %}
+            {% include "navSimple.html" %}
             {%  block content %}
             {% include "index.html" %}
             {{ listProject }}
@@ -146,6 +151,7 @@ def create_app():
         devSearched = devManagement.searchDev('nezout')
 
         return render_template_string("""
+            {% include "nav.html" %}
             {% include "devManagement.html" %}
             {% block content %}
                 <h2> Dev Management Page </h2>
