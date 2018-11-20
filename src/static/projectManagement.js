@@ -19,10 +19,17 @@ $(function() {
       $.ajax({
         url: '/projectsPage',
         success: function(response){
-          var json;
+          var json =JSON.parse($('#listToDisplay').text());
+          for (i in json.projects){
+            $('tbody').append('<tr><td>'+json.projects[i].id+'</td><td>'+json.projects[i].name+'</td><td></td></tr>');
+          }
+          $('#listToDisplay').hide();
+          //console.log($('#listToDisplay').text());
+        //  console.log(json.projects.);
+    /*      var json;
           for (proj in response){
-            json = JSON.parse(response[proj]);
-            console.log(json.name);
+            //json = JSON.parse(response[proj]);
+            console.log(response[proj]);
           };
 
         //  var json = JSON.parse(response[1]);

@@ -108,11 +108,12 @@ def create_app():
     @app.route('/projectsPage')
     def projects_page():
         try:
-            projectList =[]
+            projectList ='{"projects": ['
             projects = projectManagement.getProjectWorkspace()
             for pr in projects:
-                projectList.append(database.Serializer.serialize(pr))
-            projectList= str(projectList)
+                projectList += database.Serializer.serialize(pr)+','
+            projectList = projectList[:-1]
+            projectList += ']}'
         except Exception ,e:
             print str(e)
 
@@ -120,7 +121,9 @@ def create_app():
             {% extends "flask_user_layout.html" %}
             {%  block content %}
             {% include "index.html" %}
+            <div id="listToDisplay">
             {{ listProject }}
+            </div>
             {% endblock %}
         """, listProject = projectList)
 
