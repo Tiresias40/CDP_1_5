@@ -4,7 +4,7 @@
 # - Using class-based configuration (instead of file-based configuration)
 # - Using string-based templates (instead of file-based templates)
 
-from flask import Flask, render_template_string, request, render_template
+from flask import Flask, render_template_string, request, render_template, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_user import login_required, UserManager, UserMixin
 import sys
@@ -73,19 +73,28 @@ def create_app():
     def member_page():
         # String-based templates
         return render_template_string("""
-            {% extends "flask_user_layout.html" %}
-            {% block content %}
-                <h2>Members page</h2>
-                <p><a href={{ url_for('home_page') }}>Home page</a> (accessible to anyone)</p>
-                <p><a href={{ url_for('member_page') }}>Member page</a> (login required)</p>
-                <p><a href={{ url_for('user.logout') }}>Sign out</a></p>
-                <p><a href={{ url_for('projects_page') }}>Projets</a> </p>
-                <p><a href={{ url_for('issues_page') }}>Issues</a> </p>
-                <p><a href={{ url_for('management_page') }}>Management</a> </p>
-            {% endblock %}
+
+            {% include "nav.html" %}
             """)
 
     #test including html pages from a template dir
+
+    @app.route('/projects')
+    def getProjectList():
+        try:
+            projectList =[]
+            projects = projectManagement.getProjectWorkspace()
+            for pr in projects:
+                projectList.append(database.Serializer.serialize(pr))
+        except Exception ,e:
+            print str(e)
+
+        return projectList
+
+    #@app.route('/addProjectDisplay')
+    #def add_project_display():
+
+
 
     @app.route('/issuesPage')
     def issues_page():
@@ -98,20 +107,31 @@ def create_app():
 
     @app.route('/projectsPage')
     def projects_page():
-        projects = projectManagement.getProjectWorkspace()
+        try:
+            projectList =[]
+            projects = projectManagement.getProjectWorkspace()
+            for pr in projects:
+                projectList.append(database.Serializer.serialize(pr))
+            projectList= str(projectList)
+        except Exception ,e:
+            print str(e)
+
         return render_template_string("""
-            {% include "index.html" %}
+            {% extends "flask_user_layout.html" %}
             {%  block content %}
+            {% include "index.html" %}
             {{ listProject }}
             {% endblock %}
-        """, listProject = projects)
+        """, listProject = projectList)
 
 
-    @app.route('/addProject', methods=['POST'])
+    @app.route('/addProject', methods=['POST','GET'])
     def add_project():
         projectName = request.form['projectname']
         projectManagement.addProject(projectName)
-        return (render_template('index.html'))
+        newProject = projectManagement.getProject(projectName)
+
+        return (database.Serializer.serialize(newProject))
 
 
     @app.route('/addDev')
