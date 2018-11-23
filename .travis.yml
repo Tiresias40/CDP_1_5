@@ -1,8 +1,11 @@
 language: node_js
 
+node_js:
+  - "11"
+
 install:
   - npm install -g selenium-side-runner
-  - npm install -g --ignore-scripts geckodriver
+  - npm install -g geckodriver
 
 script:
   - selenium-side-runner -c "browserName=firefox" testEnv/*.side
