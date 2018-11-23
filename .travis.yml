@@ -14,4 +14,5 @@ install:
   - npm install -g chromedriver
 
 script:
+  - docker run -p 5000:5000 leduclouis/cdp1.5:0.1
   - selenium-side-runner -c "chromeOptions.args=[headless]" testEnv/*.side
