@@ -51,6 +51,7 @@ def create_app():
     # Setup Flask-User and specify the User data-model
     user_manager = UserManager(app, db, database.User)
 
+
     # The Home page is accessible to anyone
     @app.route('/')
     def home_page():
@@ -77,22 +78,6 @@ def create_app():
 
     #test including html pages from a template dir
 
-    @app.route('/projects')
-    def getProjectList():
-        try:
-            projectList =[]
-            projects = projectManagement.getProjectWorkspace()
-            for pr in projects:
-                projectList.append(database.Serializer.serialize(pr))
-        except Exception ,e:
-            print str(e)
-
-        return projectList
-
-    #@app.route('/addProjectDisplay')
-    #def add_project_display():
-
-
 
     @app.route('/issuesPage')
     def issues_page():
@@ -111,25 +96,14 @@ def create_app():
 
     @app.route('/projectsPage')
     def projects_page():
-        try:
-            projectList ='{"projects": ['
-            projects = projectManagement.getProjectWorkspace()
-            for pr in projects:
-                projectList += database.Serializer.serialize(pr)+','
-            projectList = projectList[:-1]
-            projectList += ']}'
-        except Exception ,e:
-            print str(e)
+        projects = projectManagement.getProjectWorkspace()
 
         return render_template_string("""
             {% include "navSimple.html" %}
             {%  block content %}
             {% include "index.html" %}
-            <div id="listToDisplay">
-            {{ listProject }}
-            </div>
             {% endblock %}
-        """, listProject = projectList)
+        """, projectsContent = projects)
 
 
     @app.route('/addProject', methods=['POST','GET'])
@@ -141,34 +115,62 @@ def create_app():
         return (database.Serializer.serialize(newProject))
 
 
-    @app.route('/addDev')
+    @app.route('/updateDevs', methods=['POST'])
     def add_dev():
-        devManagement.addDev('Test 1', 'nezout')
-        return render_template_string("""
-            {% block content %}
-                <h2> OK Ajout nezout</h2>
-            {% endblock %}
-        """)
+        devName = request.get_data()
+        str =devName.split(',')[1:-1]
+        userId = str[-1]
+        str.remove(userId)
+        userId=int(userId[1:-1])
+        requiredProjectsId =[]
+        for s in str:
+            requiredProjectsId.append(int(s[1:-1]))
+        devManagement.removeAllDevProjects(userId)
+        for val in requiredProjectsId:
+            devManagement.addDev(val,userId)
+        updateProjects =devManagement.getDevProjects(userId)
+        projectsAssigned =[]
+        for p in updateProjects:
+            projectsAssigned.append(projectManagement.getProject(p.project_id))
+        return listToJson(projectsAssigned, 'projects')
 
 
     @app.route('/managementPage')
     def management_page():
-        #projectManagement.addProject('Test 1')
-        #projectManagement.addProject('Test 2')
+        try:
+            projects = projectManagement.getProjectWorkspace()
+            users = devManagement.getUserWorkspace()
 
-        devSearched = devManagement.searchDev('nezout')
+        except Exception ,e:
+            print str(e)
 
         return render_template_string("""
-            {% include "nav.html" %}
-            {% include "devManagement.html" %}
+            {% include "navSimple.html" %}
+
             {% block content %}
+                {% include "devManagement.html" %}
                 <h2> Dev Management Page </h2>
                 <p><a href={{ url_for('add_dev') }}>Add Developer</a> </p>
                 <p><a href={{ url_for('delete_confirm') }}>Delete Developer</a> </p>
+                <table id="listToDisplay" width="500" class='out' border="1" data-dynamic="{{ resultList }}">
 
-                {{nezoutDev}}
             {% endblock %}
-        """, nezoutDev= devSearched)
+        """, projectsContent=projects, usersContent=users)
+
+    def listToJson(list, listName):
+        res='{"'+listName+'" : ['
+        for elt in list:
+            res += database.Serializer.serialize(elt)+','
+        res = res[:-1]+']}'
+        return res
+
+    @app.route('/listRelatedDevs', methods=['POST'])
+    def list_related_devs_from_project():
+        relatedDevs =devManagement.getDevs(request.get_data())
+        devsContent = listToJson(relatedDevs, 'users')
+
+        return devsContent
+
 
     @app.route('/deleteDev')
     def delete_confirm():
@@ -180,6 +182,7 @@ def create_app():
         """)
 
     return app
+
 
 
 # Start development web server

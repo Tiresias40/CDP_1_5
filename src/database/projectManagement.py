@@ -21,10 +21,10 @@ def deleteProject(name):
     db.session.delete(projectToDelete)
     db.session.commit()
 
-def getProject(name):
-    queryResult = Project.query.filter_by(name=name).first()
+def getProject(projectId):
+    queryResult = Project.query.filter_by(id=projectId).first()
     return queryResult
-    
+
 def getProjectWorkspace():
     queryResult =Project.query.all()
     return (queryResult)
