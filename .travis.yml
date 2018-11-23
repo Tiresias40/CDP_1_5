@@ -2,7 +2,13 @@ language: node_js
 
 node_js:
   - "11"
-
+  
+addons:
+  chrome: stable
+  
+before_install:
+  - google-chrome-stable --headless --disable-gpu
+  
 install:
   - npm install -g selenium-side-runner
   - npm install -g chromedriver
