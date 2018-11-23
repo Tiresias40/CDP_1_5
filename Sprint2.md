@@ -8,6 +8,8 @@ Dev : développeur / utilisateur dans la BD
 
 lien vers le Trello : https://trello.com/b/ONLkJXed
 
+Concernant le statut des taches on considère qu'une tache est "done" lorsque le composant associé est fonctionnel et que les tests associés qui valident l'us correspondante sont passés"
+
 ## Tâches du Sprint 2 :
 
 | Id | Composant | Description | Coût (en jour/homme) | Issue(s) associée(s) |
