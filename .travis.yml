@@ -1,7 +1,21 @@
 language: node_js
 
+node_js:
+  - "11"
+
+services:
+  - docker
+
+addons:
+  chrome: stable
+  
+before_install:
+  - docker run -t -d -p 5000:5000 leduclouis/cdp1.5:0.1
+  - google-chrome-stable --headless --disable-gpu
+  
 install:
-  - npm install selenium-side-runner
+  - npm install -g selenium-side-runner
+  - npm install -g chromedriver
 
 script:
-  - selenium-side-runner *.side
+  - selenium-side-runner -c "chromeOptions.args=[headless]" testEnv/*.side
