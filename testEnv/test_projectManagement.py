@@ -6,10 +6,11 @@ import database
 from database import Project
 
 class TestProjectManagement(unittest.TestCase):
-	# setup ? function that will run before EACH methods
-	# function to create the possible db
+	# is the db different from the main one ?
 	def setUp(self):
-		db = database.initAllTables(db)
+		db = SQLAlchemy()
+
+		database.initAllTables(db)
 
 	def test_addProject(self):
 		# need to create specific db ?
@@ -43,7 +44,6 @@ class TestProjectManagement(unittest.TestCase):
 		self.assertEqual(query_result[1].name, "2")
 		self.assertEqual(query_result[2].name, "3")
 
-	# tear down : to destroy the possible db created
 	def tearDown(self):
 		db.dropAll()
 

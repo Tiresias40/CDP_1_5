@@ -57,31 +57,6 @@ def create_app():
         # String-based templates
         return render_template("index.html")
 
-    # The Members page is only accessible to authenticated users via the @login_required decorator
-    @app.route('/members')
-    @login_required    # User must be authenticated
-    def member_page():
-        # String-based templates
-        return render_template_string("""
-            {% extends "layout.html" %}
-            """)
-
-    #test including html pages from a template dir
-
-
-    @app.route('/issuesPage')
-    @login_required
-    def issues_page():
-        try:
-            issueList =[]
-            issue = issueManagement.getProjectWorkspace()
-            for issue in issues:
-                projectList.append(database.Serializer.serialize(pr))
-            projectList= str(projectList)
-        except Exception ,e:
-            print str(e)
-        return render_template("issues.html")
-
     @app.route('/projectsPage')
     @login_required
     def projects_page():
@@ -131,13 +106,6 @@ def create_app():
 
         return render_template("devManagement.html", projectsContent=projects)
 
-    def listToJson(list, listName):
-        res='{"'+listName+'" : ['
-        for elt in list:
-            res += database.Serializer.serialize(elt)+','
-        res = res[:-1]+']}'
-        return res
-
     @app.route('/listRelatedDevs', methods=['POST'])
     def list_related_devs_from_project():
         try:
@@ -159,8 +127,27 @@ def create_app():
             {% endblock %}
         """)
 
+    @app.route('/issuesPage')
+    @login_required
+    def issues_page():
+        try:
+            issueList =[]
+            issue = issueManagement.getProjectWorkspace()
+            for issue in issues:
+                projectList.append(database.Serializer.serialize(pr))
+            projectList= str(projectList)
+        except Exception ,e:
+            print str(e)
+        return render_template("issues.html")
+
     return app
 
+def listToJson(list, listName):
+        res='{"'+listName+'" : ['
+        for elt in list:
+            res += database.Serializer.serialize(elt)+','
+        res = res[:-1]+']}'
+        return res
 
 
 # Start development web server
