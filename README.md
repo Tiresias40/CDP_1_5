@@ -86,7 +86,7 @@ Les éléments optionnels sont en italique.
 # Lancement du projet :
 Exécuter l'image docker de la première release sur sa machine 
 ```
-docker run -p 5000:5000 leduclouis/cdp1.5:0.1
+docker run -p 5000:5000 leduclouis/cdp1.5:0.2
 ```
 Lancer ensuite un navigateur et taper :
 ```

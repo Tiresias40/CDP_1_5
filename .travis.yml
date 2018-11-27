@@ -10,7 +10,7 @@ addons:
   chrome: stable
   
 before_install:
-  - docker run -t -d -p 5000:5000 leduclouis/cdp1.5:0.1
+  - docker run -t -d -p 5000:5000 leduclouis/cdp1.5:0.2
   - google-chrome-stable --headless --disable-gpu
   
 install:
@@ -18,4 +18,4 @@ install:
   - npm install -g chromedriver
 
 script:
-  - selenium-side-runner -c "chromeOptions.args=[headless]" testEnv/*.side
+- selenium-side-runner -c "chromeOptions.args=[headless]" testEnv/*.side
