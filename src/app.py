@@ -16,7 +16,6 @@ import projectManagement
 import devManagement
 import json
 
-
 # Class-based application configuration
 class ConfigClass(object):
     """ Flask application config """
@@ -39,7 +38,7 @@ def create_app():
     """ Flask application factory """
 
     # Create Flask app load app.config
-    app = Flask(__name__)
+    app = Flask(__name__, static_url_path='/static')
     app.config.from_object(__name__+'.ConfigClass')
 
     # Initialize Flask-SQLAlchemy
@@ -56,15 +55,7 @@ def create_app():
     @app.route('/')
     def home_page():
         # String-based templates
-        return render_template_string("""
-            {% include "navSimple.html" %}
-            {% extends "flask_user_layout.html" %}
-            {% block content %}
-                <h2>Home page</h2>
-                <p><a href={{ url_for('user.register') }}>Register</a></p>
-                <p><a href={{ url_for('user.login') }}>Sign in</a></p>
-            {% endblock %}
-            """)
+        return render_template("index.html")
 
     # The Members page is only accessible to authenticated users via the @login_required decorator
     @app.route('/members')
@@ -72,14 +63,14 @@ def create_app():
     def member_page():
         # String-based templates
         return render_template_string("""
-            {% include "navSimple.html" %}
-            {% extends "flask_user_layout.html" %}
+            {% extends "layout.html" %}
             """)
 
     #test including html pages from a template dir
 
 
     @app.route('/issuesPage')
+    @login_required
     def issues_page():
         try:
             issueList =[]
@@ -89,28 +80,21 @@ def create_app():
             projectList= str(projectList)
         except Exception ,e:
             print str(e)
-        return render_template_string("""
-            {% include "nav.html" %}
-            {% include "issues.html" %}
-        """)
+        return render_template("issues.html")
 
     @app.route('/projectsPage')
+    @login_required
     def projects_page():
         projects = projectManagement.getProjectWorkspace()
 
-        return render_template_string("""
-            {% include "navSimple.html" %}
-            {%  block content %}
-            {% include "index.html" %}
-            {% endblock %}
-        """, projectsContent = projects)
+        return render_template("projectManagement.html", projectsContent = projects)
 
 
-    @app.route('/addProject', methods=['POST','GET'])
+    @app.route('/addProject', methods=['POST'])
     def add_project():
         projectName = request.form['projectname']
         projectManagement.addProject(projectName)
-        newProject = projectManagement.getProject(projectName)
+        newProject = projectManagement.getProjectByName(projectName)
 
         return (database.Serializer.serialize(newProject))
 
@@ -136,6 +120,7 @@ def create_app():
 
 
     @app.route('/managementPage')
+    @login_required
     def management_page():
         try:
             projects = projectManagement.getProjectWorkspace()
@@ -144,18 +129,7 @@ def create_app():
         except Exception ,e:
             print str(e)
 
-        return render_template_string("""
-            {% include "navSimple.html" %}
-
-            {% block content %}
-                {% include "devManagement.html" %}
-                <h2> Dev Management Page </h2>
-                <p><a href={{ url_for('add_dev') }}>Add Developer</a> </p>
-                <p><a href={{ url_for('delete_confirm') }}>Delete Developer</a> </p>
-                <table id="listToDisplay" width="500" class='out' border="1" data-dynamic="{{ resultList }}">
-
-            {% endblock %}
-        """, projectsContent=projects, usersContent=users)
+        return render_template("devManagement.html", projectsContent=projects)
 
     def listToJson(list, listName):
         res='{"'+listName+'" : ['
@@ -166,8 +140,12 @@ def create_app():
 
     @app.route('/listRelatedDevs', methods=['POST'])
     def list_related_devs_from_project():
-        relatedDevs =devManagement.getDevs(request.get_data())
-        devsContent = listToJson(relatedDevs, 'users')
+        try:
+            relatedDevs =devManagement.getDevs(request.get_data())
+            devsContent = listToJson(relatedDevs, 'users')
+        except Exception ,e:
+            print str(e)
+            return "Empty"
 
         return devsContent
 
@@ -187,5 +165,6 @@ def create_app():
 
 # Start development web server
 if __name__=='__main__':
+
     app = create_app()
     app.run(host='0.0.0.0', port=5000, debug=True)

@@ -7,7 +7,7 @@ $(function() {
             type: 'POST',
             success: function(response){
               var json = JSON.parse(response);
-              $('tbody').append('<tr><td>'+json.id+'</td><td>'+json.name+'</td><td></td></tr>');
+              $('.card-deck').append('<div class="card bg-primary text-center"><div class="card-header">'+json.name+'</div><div class="card-body text-center"><p class="card-text">'+json.id+'</p></div></div>');
             },
             error: function(error) {
                 console.log(error);

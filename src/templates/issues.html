@@ -1,25 +1,18 @@
-<!DOCTYPE html>
+{% extends "layout.html" %}
 
-<html>
-    <head>
-        <meta charset="utf-8" />
-        <title>Issues</title>
-        <!-- Bootstrap core CSS -->
-        <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"> </script>
-        <script src="{{url_for('static', filename='projectManagement.js')}}"> </script>
-    </head>
-    <body>
-      <h3> Ajout d'une nouvelle Issue au Backlog</h3>
-      <div class = "container">
-        <div class= "col-md-8" id = "addIssue">
-          <form action="/addIssue" method="Post" role="form">
-            <input type="text" id="issuename" name="issuename" class="form-control" required>
-            <button class="btn btn-lg btn-primary btn-block" type="button" >Ajouter une issue</button>
-          </form>
-          <br>
-        </div>
-      </div>
-      </div>
-    </body>
-    </html>
+{% block extra_js %}
+  <script src="{{url_for('static', filename='projectManagement.js')}}"> </script>
+{% endblock %}
+
+{% block content %}
+  <div class = "container">
+    <h3> Ajout d'une nouvelle Issue au Backlog</h3>
+    <div class= "col-md-8" id = "addIssue">
+      <form action="/addIssue" method="Post" role="form">
+        <input type="text" id="issuename" name="issuename" class="form-control" required>
+        <button class="btn btn-lg btn-primary btn-block" type="button" >Ajouter une issue</button>
+      </form>
+      <br>
+    </div>
+  </div>
+{% endblock %}

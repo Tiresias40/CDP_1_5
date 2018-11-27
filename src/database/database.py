@@ -109,3 +109,7 @@ class Developers(db.Model):
 def initAllTables(dbWithAppConfig):
     # Create all database tables
     dbWithAppConfig.create_all()
+
+def dropAndDownSessionDB():
+    db.session.remove()
+    db.drop_all()
