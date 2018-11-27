@@ -10,12 +10,12 @@ def addDev(projectId,userId):
     db.session.add(newDev)
     db.session.commit()
 
-def getUser(username):
-    userId = User.query.filter_by(username=username).first().id
-    dev = Developer
+#def getUser(username):
+##    userId = User.query.filter_by(username=username).first().id
+#    dev = Developers.query.filter_by(user_id=userId).
 
 def getDevs(projectId):
-    devs = Developer.query.filter_by(project_id=projectId)
+    devs = Developers.query.filter_by(project_id=projectId)
     resDevs = User.query.join(devs)
     return resDevs
 

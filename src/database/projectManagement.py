@@ -25,6 +25,11 @@ def getProject(projectId):
     queryResult = Project.query.filter_by(id=projectId).first()
     return queryResult
 
+
+def getProjectByName(projectName):
+    queryResult = Project.query.filter_by(name=projectName).first()
+    return queryResult
+
 def getProjectWorkspace():
     queryResult =Project.query.all()
     return (queryResult)

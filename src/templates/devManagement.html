@@ -1,63 +1,60 @@
-<!DOCTYPE html>
 
-<html>
-<head>
-	<meta charset="utf-8" />
-	<title>Développeurs</title>
-	<!-- Bootstrap core CSS -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"> </script>
-	<script src="{{url_for('static', filename='devManagement.js')}}"> </script>
+{% extends "layout.html" %}
 
+{% block extra_js %}
+  <script src="{{url_for('static', filename='devManagement.js')}}"> </script>
+{% endblock %}
 
-</head>
-<body>
-
+{% block content %}
 	<div class="container">
-  <div class="jumbotron">
-    <h2>Management Page</h2>
-    <p>Here we can manage Users in team project</p>
-  </div>
-</div>
-	<form>
-	<div class="form-group container">
- 		<label for="selProject">Sélection de projet(s) à assigner:</label>
+	  <div class="jumbotron">
+	    <h2>Management Page</h2>
+	    <p>Here we can manage Users in team project</p>
+			<p>Project Name : {{ projectsContent.name }}</p>
+	  </div>
+	</div>
 
- 		<select class="form-control selectpicker" id="selProject" data-style="btn-info" multiple>
-			{% for element in projectsContent %}
-			<option class="rounded-circle" value="{{ element.id }}">{{ element.name }}</option>
-			{% endfor %}
-	 	</select>
-
-</div>
-</form>
-
-
-
-		<div class="container">
-			<table class="table table-striped">
-				<thead>
-					<tr>
-						<th>Username</th>
-						<th>First Name</th>
-						<th>Last Name</th>
-						<th>Action Projects</th>
-					</tr>
-				</thead>
-				<tbody>
-					{% for element in usersContent %}
-					<tr><td>{{ element.username }}</td><td>{{ element.first_name}}</td> <td>{{ element.last_name }}</td><td>
-						<div class="input-group">
-			      	<span class="input-group-btn">
-                <button  class="btn btn-default btn-sm plus" value="{{element.id}}"><i class="glyphicon glyphicon-plus"></i></button>
-								<button  class="btn btn-default btn-sm remove"><i class="glyphicon glyphicon-remove"></i></button>
-								<button  class="btn btn-default btn-sm open" data-toggle="modal" data-target="#projectsModal"><i class="glyphicon glyphicon-eye-open"></i></button>
-            	</span>
-        		</div>
-					</td></tr>
+	</div class="container">
+		<!-- Editable table -->
+	<div class="card">
+	  <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Groupe de projet</h3>
+	  <div class="card-body">
+	    <div id="displayDevsTable" class="table-editable">
+	      <span class="table-add float-right mb-3 mr-2">
+					<a href="#!" class="text-success">
+						<i class="fa fa-plus fa-2x" aria-hidden="false"></i>
+					</a>
+				</span>
+	      <table class="table table-bordered table-responsive-md table-striped text-center">
+	        <tr>
+						<th class="text-center">Username</th>
+						<th class="text-center">First Name</th>
+						<th class="text-center">Last Name</th>
+						<th class="text-center">Sort</th>
+						<th class="text-center">Action</th>
+	        </tr>
+			 	{% for element in usersContent %}
+	        <tr>
+	          <td class="pt-3-half" >{{element.username}}</td>
+	          <td class="pt-3-half" >{{element.first_name}}</td>
+	          <td class="pt-3-half" >{{element.last_name}}</td>
+	          <td class="pt-3-half">
+	            <span class="table-up"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-up" aria-hidden="true"></i></a></span>
+	            <span class="table-down"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-down"
+	                  aria-hidden="true"></i></a></span>
+	          </td>
+	          <td>
+	            <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+	          </td>
+	        </tr>
 					{% endfor %}
-				</tbody>
-			</table>
-		</div>
+	      </table>
+	    </div>
+	  </div>
+	</div>
+	</div>
+	<!-- Editable table -->
+
 
 		<div class="modal fade" id="projectsModal" tabindex="-1" role="dialog" aria-labelledby="projectsModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -77,7 +74,8 @@
     </div>
   </div>
 </div>
-		
+
+
 	<h2>Ajout d'un nouveau développeur au projet </h2>
 	<div class="container">
 		<div class="row">
@@ -91,7 +89,4 @@
 		</div>
 	</div>
 
-
-
-</body>
-</html>
+{% endblock%}

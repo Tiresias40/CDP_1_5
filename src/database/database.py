@@ -115,3 +115,8 @@ def initAllTablesAndSetupUserManager(app,db):
 
 
     return db
+
+def dropAndDownSessionDB():
+    db.session.remove()
+    db.drop_all()
+    
