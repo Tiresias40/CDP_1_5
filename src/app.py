@@ -46,7 +46,7 @@ def create_app():
     db = SQLAlchemy(app)
 
     #include All models made on DB analysis step, setup Flask-User and specify the User data-model
-    db = database.initAllTablesAndSetupUserManager(app,db)
+    database.initAllTables(db)
 
     # Setup Flask-User and specify the User data-model
     user_manager = UserManager(app, db, database.User)
@@ -131,7 +131,7 @@ def create_app():
         updateProjects =devManagement.getDevProjects(userId)
         projectsAssigned =[]
         for p in updateProjects:
-            projectsAssigned.append(projectManagement.getProject(p.project_id))
+            projectsAssigned.append(projectManagement.getProject(p.project_name))
         return listToJson(projectsAssigned, 'projects')
 
 

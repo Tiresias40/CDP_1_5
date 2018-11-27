@@ -2,8 +2,9 @@
 
 from flask_sqlalchemy import SQLAlchemy
 import database
-from database import Developers,Project, User, db, Serializer
+from database import Developers,Project, User, Serializer
 
+db = SQLAlchemy()
 
 def addDev(projectId,userId):
     newDev = Developers(project_id=projectId, user_id=userId)

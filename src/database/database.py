@@ -2,7 +2,6 @@
 
 from flask_user import  UserManager, UserMixin
 from flask_sqlalchemy import SQLAlchemy
-import uuid
 import json
 
 db = SQLAlchemy()
@@ -107,11 +106,6 @@ class Developers(db.Model):
     def __repr__(self):
         return 'Developer< project_id=%r, user_id=%r >' % (self.project_id, self.user_id)
 
-def initAllTablesAndSetupUserManager(app,db):
-
-
+def initAllTables(dbWithAppConfig):
     # Create all database tables
-    db.create_all()
-
-
-    return db
+    dbWithAppConfig.create_all()
