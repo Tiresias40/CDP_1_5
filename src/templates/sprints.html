@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block extra_js %}
+<!--<script src="{{url_for('static', filename='projectManagement.js')}}"> </script>-->
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="jumbotron">
+    <h2>Sprint Page</h2>
+    <p>Here we can create select one of the sprint of the project and manage its tasks</p>
+  </div>
+</div>
+<h2>Ajout d'un nouveau sprint </h2>
+<div class="container">
+  <div class="row">
+    <div class="col-md-8" id="addSprint">
+      <form method="Post" role="form">
+        <input type="date" id="beginDate" name="beginDate" class="form-control" required>
+        <button class="btn btn-lg btn-primary btn-block" type="button" >Ajouter un sprint</button>
+      </form>
+      <br/>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="card-deck-wrapper">
+    {% for element in sprintsContent %}
+    <div class="card-deck">
+
+      <div class="card">
+        <div class="card-header">
+          {{ element.name }}
+        </div>
+        <div class="card-body" >
+          <p class="card-text">Some text inside the first card</p>
+        </div>
+      </div>
+
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+
+{% endblock %}

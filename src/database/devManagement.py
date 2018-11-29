@@ -1,8 +1,7 @@
 # devManagement.py
 
 from flask_sqlalchemy import SQLAlchemy
-import database
-from database import Developers,Project, User, Serializer
+from database import Developers, Project, User, Serializer
 
 db = SQLAlchemy()
 
