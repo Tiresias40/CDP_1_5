@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+
+{% block extra_js %}
+<script src="{{url_for('static', filename='sprintManagement.js')}}"> </script>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="jumbotron">
+    <h2>Sprint Page</h2>
+    <p>Here we can create select one of the sprint of the project and manage its tasks</p>
+  </div>
+</div>
+<h2>Addition of a sprint </h2>
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+      <form method="Post" role="form">
+        <input type="hidden" name="projectName" value="Test 1">
+        <input type="date" name="beginDate" class="form-control" required>
+        <button class="btn btn-lg btn-primary btn-block" id="sprint_add_button" type="button" >Add a sprint</button>
+      </form>
+      <br/>
+    </div>
+  </div>
+</div>
+
+<h2>Deletion of a sprint</h2>
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+      <form method="Delete" role="form">
+        <input type="text" name="sprintId" class="form-control" required>
+        <button class="btn btn-lg btn-primary btn-block" id="sprint_delete_button" type="button" >Delete this sprint</button>
+      </form>
+      <br/>
+    </div>
+  </div>
+</div>
+
+<h2>List of sprints</h2>
+<div class="container">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Project id</th>
+        <th>Begin date</th>
+        <th>End date</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for sprint in sprintsContent %}
+      <tr>
+        <th>{{ sprint.project_id }}</th>
+        <th>{{ (sprint.begin_date).strftime("%d/%m/%Y") }}</th>
+        <th>{{ (sprint.end_date).strftime("%d/%m/%Y") }}</th>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+
+{% endblock %}

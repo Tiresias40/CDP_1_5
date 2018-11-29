@@ -7,7 +7,16 @@ $(function() {
             type: 'POST',
             success: function(response){
               var json = JSON.parse(response);
-              $('.card-deck').append('<div class="card bg-primary text-center"><div class="card-header">'+json.name+'</div><div class="card-body text-center"><p class="card-text">'+json.id+'</p></div></div>');
+              $('.card-deck-wrapper').append(
+                '<div class="card-deck">' +
+                  '<div class="card bg-primary">' +
+                    '<div class="card-header">'+json.name+'</div>' +
+                    '<div class="card-body">' + 
+                      '<p class="card-text">'+json.id+'</p>' +
+                    '</div>' +
+                  '</div>' + 
+                '</div>'
+              );
             },
             error: function(error) {
                 console.log(error);

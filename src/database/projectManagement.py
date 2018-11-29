@@ -10,16 +10,11 @@ def addProject(projectName):
     db.session.commit()
 
 # modify the Project currentId's name  to newName
-# TO DELETE
-def modifyProjectNameById(currentId,  newName):
-    Project.query.filter_by(id=queryId).update({'name': newName})
-
-# modify the Project currentId's name  to newName
 def modifyProjectNameByName(currentName,  newName):
-    Project.query.filter_by(name=currentName).update({'name': newName})
+    Project.query.filter_by(name=currentName).first().update({'name': newName})
 
 def deleteProject(name):
-    projectToDelete = Project.query.filter_by(name=name)
+    projectToDelete = Project.query.filter_by(name=name).first()
     db.session.delete(projectToDelete)
     db.session.commit()
 
@@ -27,11 +22,6 @@ def getProject(projectName):
     queryResult = Project.query.filter_by(name=projectName).first()
     return queryResult
 
-
-def getProjectByName(projectName):
-    queryResult = Project.query.filter_by(name=projectName).first()
-    return queryResult
-
 def getProjectWorkspace():
-    queryResult =Project.query.all()
-    return (queryResult)
+    queryResult = Project.query.all()
+    return queryResult

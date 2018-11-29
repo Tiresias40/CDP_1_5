@@ -6,7 +6,6 @@ import json
 
 db = SQLAlchemy()
 
-
 class Serializer(object):
     @staticmethod
     def serialize(obj):
@@ -59,7 +58,7 @@ class Issue(db.Model):
 class Project(db.Model):
     __tablename__ = 'projects'
     id = db.Column( db.Integer, primary_key=True)
-    name = db.Column(db.String(20), nullable=False)
+    name = db.Column(db.String(20), nullable=False, unique=True)
     # foreign keys relationship usefull for simple query acces
     sprints = db.relationship('Sprint', backref='projects')
     issues = db.relationship('Issue', backref='projects')
@@ -79,6 +78,9 @@ class Sprint(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     begin_date = db.Column(db.DateTime())
     end_date = db.Column(db.DateTime())
+    # Column to add to identify which sprint we are talking about in a specific project
+    # id was too general since it was incr for every sprint of every project
+    # number = db.Column(db.Integer, nullable=False)
     project_id = db.Column(db.Integer, db.ForeignKey('projects.id'), nullable=False)
     tasks = db.relationship('Task', backref='sprints')
 

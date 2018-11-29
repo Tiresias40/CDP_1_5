@@ -4,7 +4,7 @@
 # - Using class-based configuration (instead of file-based configuration)
 # - Using string-based templates (instead of file-based templates)
 
-from flask import Flask, render_template_string, request, render_template, jsonify
+from flask import Flask, render_template_string, request, render_template, jsonify, redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask_user import login_required, UserManager, UserMixin
 import sys
@@ -14,6 +14,7 @@ sys.path.insert(1, os.getcwd()+"/templates")
 import database
 import projectManagement
 import devManagement
+import sprintManagement
 import json
 
 # Class-based application configuration
@@ -69,7 +70,7 @@ def create_app():
     def add_project():
         projectName = request.form['projectname']
         projectManagement.addProject(projectName)
-        newProject = projectManagement.getProjectByName(projectName)
+        newProject = projectManagement.getProject(projectName)
 
         return (database.Serializer.serialize(newProject))
 
@@ -101,8 +102,8 @@ def create_app():
             projects = projectManagement.getProjectWorkspace()
             users = devManagement.getUserWorkspace()
 
-        except Exception ,e:
-            print str(e)
+        except Exception as e:
+            str(e)
 
         return render_template("devManagement.html", projectsContent=projects)
 
@@ -111,8 +112,8 @@ def create_app():
         try:
             relatedDevs =devManagement.getDevs(request.get_data())
             devsContent = listToJson(relatedDevs, 'users')
-        except Exception ,e:
-            print str(e)
+        except Exception as e:
+            str(e)
             return "Empty"
 
         return devsContent
@@ -135,10 +136,36 @@ def create_app():
             issue = issueManagement.getProjectWorkspace()
             for issue in issues:
                 projectList.append(database.Serializer.serialize(pr))
-            projectList= str(projectList)
-        except Exception ,e:
-            print str(e)
+            projectList = str(projectList)
+        except Exception as e:
+            str(e)
         return render_template("issues.html")
+
+
+    @app.route('/sprintsPage')
+    @login_required
+    def sprints_page():
+        try:
+            sprints = sprintManagement.getSprints()
+        except Exception as e:
+            str(e)
+        return render_template("sprintManagement.html", sprintsContent=sprints)
+
+    @app.route('/addSprint', methods=['POST'])
+    def add_sprint():
+        sprint_begin_date = request.form['beginDate']
+        sprint_project_name = request.form['projectName']
+        sprintManagement.addSprint(sprint_project_name, sprint_begin_date)
+
+        return redirect('/sprintsPage')
+        # Can also do return redirect(url_for('sprints_page')) too if import url_for from flask
+
+    @app.route('/deleteSprint', methods=['DELETE'])
+    def delete_sprint():
+        sprint_id = request.form['sprintId']
+        sprintManagement.deleteSprint(sprint_id)
+
+        return redirect('/sprintsPage')
 
     return app
 
