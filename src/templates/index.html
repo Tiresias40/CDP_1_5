@@ -1,17 +1,10 @@
 {% extends "layout.html" %}
 
-{% block menu %}
-{% include "navSimple.html" %}
-{% endblock %}
-
 {% block content %}
 <div class="container">
-	<div class="jumbotron">
-		<h2>Home page</h2>
-		<p> Here is the home page</p>
+	<div class="jumbotron text-center">
+		<h2>Welcome to our wonderful application !</h2>
+		<p>Sign in or Register in the top right corner !</p>
 	</div>
 </div>
-
-<p><a href={{ url_for('user.register') }}>Register</a></p>
-<p><a href={{ url_for('user.login') }}>Sign in</a></p>
 {% endblock %}
