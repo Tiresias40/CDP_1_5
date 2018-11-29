@@ -1,6 +1,5 @@
 # projectManagement.py
 from flask_sqlalchemy import SQLAlchemy
-import database
 from database import Project, Serializer
 
 db = SQLAlchemy()

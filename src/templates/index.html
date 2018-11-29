@@ -3,7 +3,12 @@
 {% block content %}
 <div class="container">
 	<div class="jumbotron text-center">
-		<h2>Welcome to our wonderful application !</h2>
+		<h2>Welcome 
+			{% if call_or_get(current_user.is_authenticated) %}
+			<span class="text-primary">{{ current_user.username }}</span>
+			{% endif %}
+			!
+		</h2>
 		<p>Sign in or Register in the top right corner !</p>
 	</div>
 </div>

@@ -5,3 +5,4 @@ Nom du fichier : sprints.py
 Fonctions :
 	- addSprint (3 args)
 	- deleteSprint (1 args)
+	- getSprints (1 args)
