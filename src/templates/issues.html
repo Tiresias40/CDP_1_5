@@ -1,18 +1,23 @@
 {% extends "layout.html" %}
 
 {% block extra_js %}
-  <script src="{{url_for('static', filename='projectManagement.js')}}"> </script>
+  <script src="{{url_for('static', filename='issueManagement.js')}}"> </script>
 {% endblock %}
 
 {% block content %}
   <div class = "container">
+  <div class = "jumbotron">
+    <h1 class="text-center">Backlog</h1>
+    <p class = "text-center">here you can see the backlog of your project and add an issue.</p>
+  </div>
     <h3> Ajout d'une nouvelle Issue au Backlog</h3>
     <div class= "col-md-8" id = "addIssue">
-      <form action="/addIssue" method="Post" role="form">
+      <form method="Post" role="form">
         <input type="text" id="issuename" name="issuename" class="form-control" required>
         <button class="btn btn-lg btn-primary btn-block" type="button" >Ajouter une issue</button>
       </form>
       <br>
     </div>
   </div>
+
 {% endblock %}
