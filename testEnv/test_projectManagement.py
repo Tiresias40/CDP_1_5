@@ -45,6 +45,7 @@ class TestProjectManagement(unittest.TestCase):
 		self.assertEqual(query_result[2].name, "3")
 
 	def tearDown(self):
+		db.session.remove()
 		db.dropAll()
 
 if __name__ = '__main__':

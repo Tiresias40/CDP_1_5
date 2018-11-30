@@ -103,7 +103,7 @@ def create_app():
             users = devManagement.getUserWorkspace()
 
         except Exception as e:
-            str(e)
+            print(str(e))
 
         return render_template("devManagement.html", projectsContent=projects)
 
@@ -113,7 +113,7 @@ def create_app():
             relatedDevs =devManagement.getDevs(request.get_data())
             devsContent = listToJson(relatedDevs, 'users')
         except Exception as e:
-            str(e)
+            print(str(e))
             return "Empty"
 
         return devsContent
@@ -148,7 +148,7 @@ def create_app():
         try:
             sprints = sprintManagement.getSprints()
         except Exception as e:
-            str(e)
+            print(str(e))
         return render_template("sprintManagement.html", sprintsContent=sprints)
 
     @app.route('/addSprint', methods=['POST'])
