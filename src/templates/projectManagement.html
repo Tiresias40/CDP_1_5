@@ -1,5 +1,10 @@
 {% extends "layout.html" %}
 
+{% block extra_css %}
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/cards.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css')}}">
+{% endblock %}
+
 {% block extra_js %}
   <script src="{{url_for('static', filename='projectManagement.js')}}"> </script>
 {% endblock %}
@@ -24,24 +29,42 @@
 		</div>
 	</div>
 
+
   <div class="container">
-  <div class="card-deck-wrapper">
-    	{% for element in projectsContent %}
-  <div class="card-deck">
+    <hr>
+    <h2 class="text-center">Les projets</h2>
+    <hr>
+    <div class="card-deck">
+    {% for element in projectsContent %}
+      <div class="card shadow-sm bg-white rounded w-25">
+            <!-- Card image -->
+      <div class="view overlay">
+        <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/photo9.jpg" alt="Card image cap">
+        <a>
+          <div class="mask rgba-white-slight"></div>
+        </a>
+      </div>
 
-        <div class="card">
-    			<div class="card-header">
-    				{{ element.name }}
-    			</div>
     	    <div class="card-body" >
-    	      <p class="card-text">Some text inside the first card</p>
-    	    </div>
-    	  </div>
+            <!-- Title -->
+            <h4 class="card-title">{{element.name}}</h4>
+            <hr>
+            <!-- Text -->
+    	      <p class="card-text">Id : {{element.id}}</p>
 
-  </div>
+            <button class="btn btn-indigo btn-rounded btn-md">Choisir</button>
+
+
+          </div>
+    	 </div>
+        {% if (element.id % 4)==0 %}
+          <div class="w-100 hidden-md-down hidden-xl-up"><br/> <br/></div>
+        {% endif %}
     {% endfor %}
+  </div>
+
 </div>
-</div>
+
 
 
 {% endblock %}

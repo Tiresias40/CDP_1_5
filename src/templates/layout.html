@@ -8,7 +8,7 @@
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css')}}">
+
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <!-- In-lining styles to avoid needing a separate .css file -->
 
@@ -25,7 +25,7 @@
   </head>
 
 
-<body>
+<body style="background-image: url({{url_for('static', filename='css/img/bgw.jpeg')}});">
     {% block body %}
     <div id="header-div" class="clearfix with-margins">
         <div class="pull-left"><a href="/"><h1 class="no-margins">{{ user_manager.USER_APP_NAME }}</h1></a></div>
@@ -38,13 +38,10 @@
                 <a href="{{ url_for('user.login') }}">{%trans%}Sign in{%endtrans%}</a>
             {% endif %}
         </div>
+          {% include "navSimple.html" %}
     </div>
-    {% include "navSimple.html" %}
-    {% block menu %}
-    {% endblock %}
-    <hr class="no-margins"/>
 
-    <div id="main-div" class="with-margins">
+    <div id="main-div" class="with-margins" >
     {# One-time system messages called Flash messages #}
     {% block flash_messages %}
         {%- with messages = get_flashed_messages(with_categories=true) -%}
@@ -63,11 +60,9 @@
         {% block content %}{% endblock %}
     {% endblock %}
     </div>
-
-    <br/>
     <hr class="no-margins"/>
     <div id="footer-div" class="clearfix with-margins">
-        <div class="pull-left">{{ user_manager.USER_APP_NAME }} v1.0</div>
+        <div class="pull-left">{{ user_manager.USER_APP_NAME }} v0.2</div>
         <div class="pull-right">&copy; 2014 MyCorp</div>
     </div>
     {% endblock %}
@@ -76,8 +71,9 @@
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script src="{{url_for('static', filename='cardsAnimation.js')}}"> </script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 
     {# *** Allow sub-templates to insert extra html to the bottom of the body *** #}
     {% block extra_js %}{% endblock %}

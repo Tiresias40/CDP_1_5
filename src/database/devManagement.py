@@ -15,17 +15,16 @@ def addDev(projectId,userId):
 #    dev = Developers.query.filter_by(user_id=userId).
 
 def getDevs(projectId):
-    devs = Developers.query.filter_by(project_id=projectId)
-    resDevs = User.query.join(devs)
+    resDevs =(db.session.query(User).join(Developers, User.id==Developers.user_id)).filter_by(project_id=projectId).all()
     return resDevs
 
 def getUserWorkspace():
     queryResult = User.query.all()
     return queryResult
 
-def deleteDev(userUsername, projectName):
+def deleteDev(userUsername, projectId):
     userID =  User.query.filter_by(username=userUsername).first().id
-    projectID = Project.query.filter_by(name=projectName).first().id
+    projectID = Project.query.filter_by(id=projectId).first().id
     projectDevToDelete = Developers.query.filter_by(user_id=userID, project_id=projectID).first()
     db.session.delete(projectDevToDelete)
     db.session.commit()
@@ -36,12 +35,18 @@ def searchDev(userUsername):
     return (devContent)
 
 def getDevProjects(userId):
-    res = Developers.query.filter_by(user_id=userId)
+    res = Developers.query.filter_by(user_id=userId).all()
     return res
 
 def removeAllDevProjects(userId):
-    res= Developers.query.filter_by(user_id=userId)
+    res= Developers.query.filter_by(user_id=userId).all()
     for i in res:
+        db.session.delete(i)
+    db.session.commit()
+
+def deleteAll():
+    tmp= getDevWorkspace()
+    for i in tmp:
         db.session.delete(i)
     db.session.commit()
 

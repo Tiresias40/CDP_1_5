@@ -101,13 +101,13 @@ class Task(db.Model):
 
 class Developers(db.Model):
     __tablename__ = 'developers'
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
-    project_id = db.Column(db.Integer, db.ForeignKey('projects.id'), primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True,unique=False)
+    project_id = db.Column(db.Integer, db.ForeignKey('projects.id'), primary_key=True, unique=False)
 
     def __repr__(self):
         return 'Developer< project_id=%r, user_id=%r >' % (self.project_id, self.user_id)
 
-def initAllTablesAndSetupUserManager(app,db):
+def initAllTables(db):
 
 
     # Create all database tables
@@ -116,7 +116,5 @@ def initAllTablesAndSetupUserManager(app,db):
 
     return db
 
-def dropAndDownSessionDB():
-    db.session.remove()
+def dropAndDownSessionDB(db):    
     db.drop_all()
-    

@@ -10,20 +10,21 @@
 	  <div class="jumbotron">
 	    <h2>Management Page</h2>
 	    <p>Here we can manage Users in team project</p>
-			<p>Project Name : {{ projectsContent.name }}</p>
+      <p>Id :<span id="projectId">{{ project.id }}</span> </p>
+			<p >Project Name : {{ project.name}}</p>
 	  </div>
 	</div>
 
-	</div class="container">
+	<div class="container">
 		<!-- Editable table -->
 	<div class="card">
 	  <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Groupe de projet</h3>
 	  <div class="card-body">
 	    <div id="displayDevsTable" class="table-editable">
 	      <span class="table-add float-right mb-3 mr-2">
-					<a href="#!" class="text-success">
-						<i class="fa fa-plus fa-2x" aria-hidden="false"></i>
-					</a>
+
+            <button id="addDevsModalButton" type="button" class="btn btn-success" data-toggle="modal" data-target="#modalCart">Add</button>
+
 				</span>
 	      <table class="table table-bordered table-responsive-md table-striped text-center">
 	        <tr>
@@ -33,60 +34,78 @@
 						<th class="text-center">Sort</th>
 						<th class="text-center">Action</th>
 	        </tr>
-			 	{% for element in usersContent %}
-	        <tr>
-	          <td class="pt-3-half" >{{element.username}}</td>
-	          <td class="pt-3-half" >{{element.first_name}}</td>
-	          <td class="pt-3-half" >{{element.last_name}}</td>
-	          <td class="pt-3-half">
-	            <span class="table-up"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-up" aria-hidden="true"></i></a></span>
-	            <span class="table-down"><a href="#!" class="indigo-text"><i class="fa fa-long-arrow-down"
-	                  aria-hidden="true"></i></a></span>
-	          </td>
-	          <td>
-	            <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
-	          </td>
-	        </tr>
-					{% endfor %}
+          {% for elt in usersAdded %}
+          <tr>
+            <td class="inputUsername pt-3-half">{{elt.username}}</td>
+            <td>{{elt.first_name}}</td>
+            <td>{{elt.last_name}}
+            </td>
+            <td class="pt-3-half">
+              <span class="table-up">
+                <a href="#!" class="indigo-text"><i class="fas fa-arrow-up" aria-hidden="true"></i></a>
+              </span>
+              <span class="table-down">
+                <a href="#!" class="indigo-text"><i class="fas fa-arrow-down" aria-hidden="true"></i>
+                </a>
+              </span>
+             </td>
+             <td> <span class="table-remove">
+               <button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button>
+             </span> </td>
+          </tr>
+          {% endfor %}
 	      </table>
+
 	    </div>
 	  </div>
 	</div>
 	</div>
 	<!-- Editable table -->
+</div>
+
+  <div class="container">
 
 
-		<div class="modal fade" id="projectsModal" tabindex="-1" role="dialog" aria-labelledby="projectsModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="projectsModalLabel">Projets assignés</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+  <!-- Modal: modalCart -->
+  <div class="modal" id="modalCart" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <!--Header-->
+        <div class="modal-header">
+          <h4 class="modal-title" id="myModal">Add Devs To project</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <!--Body-->
+        <div class="modal-body">
+
+          <table id="modalTable" class="table table-hover">
+            <thead>
+              <tr>
+                <th>Picker</th>
+                <th>#</th>
+                <th>Username</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+              </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+          </table>
+
+        </div>
+        <!--Footer-->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cancel</button>
+          <button class="btn btn-primary" id="modalDevsToAdd" data-dismiss="modal">Add</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
+  <!-- Modal: modalCart -->
 
-
-	<h2>Ajout d'un nouveau développeur au projet </h2>
-	<div class="container">
-		<div class="row">
-			<div class="col-md-8" id="addDev">
-				<form action="/searchDev" method="Post" role="form">
-					<input type="text" id="userUsername" name="userUsername" class="form-control" required>
-					<button class="btn btn-primary btn-block" type="button" >Chercher un développeur</button>
-				</form>
-				<br>
-			</div>
-		</div>
-	</div>
-
+    </div>
 {% endblock%}

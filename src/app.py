@@ -46,11 +46,12 @@ def create_app():
 
     #include All models made on DB analysis step, setup Flask-User and specify the User data-model
 
-    db = database.initAllTablesAndSetupUserManager(app,db)
+    db = database.initAllTables(db)
+
+
 
     # Setup Flask-User and specify the User data-model
     user_manager = UserManager(app, db, database.User)
-
 
     # The Home page is accessible to anyone
     @app.route('/')
@@ -100,37 +101,39 @@ def create_app():
         return (database.Serializer.serialize(newProject))
 
 
-    @app.route('/updateDevs', methods=['POST'])
+    @app.route('/usersAvailable', methods=['POST'])
     def add_dev():
-        devName = request.get_data()
-        str =devName.split(',')[1:-1]
-        userId = str[-1]
-        str.remove(userId)
-        userId=int(userId[1:-1])
-        requiredProjectsId =[]
-        for s in str:
-            requiredProjectsId.append(int(s[1:-1]))
-        devManagement.removeAllDevProjects(userId)
-        for val in requiredProjectsId:
-            devManagement.addDev(val,userId)
-        updateProjects =devManagement.getDevProjects(userId)
-        projectsAssigned =[]
-        for p in updateProjects:
-            projectsAssigned.append(projectManagement.getProject(p.project_id))
-        return listToJson(projectsAssigned, 'projects')
+        devs = devManagement.getUserWorkspace()
+        devsAvailable="Empty"
+        try:
+            projectId = int(request.get_data())
+
+            devsAlreadyAssigned = devManagement.getDevs(projectId)
+            print(str(devsAlreadyAssigned)+"okok")
+            for elt in devsAlreadyAssigned:
+                if elt in devs:
+                    devs.remove(elt)
+            if len(devs) != 0:
+                print(str(devs)+"users dispo")
+                devsAvailable =listToJson(devs, 'devs')
+        except Exception ,e:
+            print str(e)
+
+        return devsAvailable
 
 
     @app.route('/managementPage')
     @login_required
     def management_page():
-        try:
-            projects = projectManagement.getProjectWorkspace()
-            users = devManagement.getUserWorkspace()
 
+        try:
+            project = projectManagement.getProject(6)
+            users = devManagement.getDevs(6)
+            print(str(users)+"devs deja Add")
         except Exception ,e:
             print str(e)
 
-        return render_template("devManagement.html", projectsContent=projects)
+        return render_template("devManagement.html", project=project, usersAdded=users)
 
     def listToJson(list, listName):
         res='{"'+listName+'" : ['
@@ -139,27 +142,25 @@ def create_app():
         res = res[:-1]+']}'
         return res
 
-    @app.route('/listRelatedDevs', methods=['POST'])
-    def list_related_devs_from_project():
-        try:
-            relatedDevs =devManagement.getDevs(request.get_data())
-            devsContent = listToJson(relatedDevs, 'users')
-        except Exception ,e:
-            print str(e)
-            return "Empty"
-
-        return devsContent
+    @app.route('/addDevs', methods=['POST'])
+    def add_devs_project():
+        devsResult = request.get_data()
+        jsonResult =json.loads(devsResult)
+        for elt in jsonResult['users']:
+            devManagement.addDev(int(jsonResult['id']), int(elt))
+        devsToDisplay = listToJson(devManagement.getDevs(int(jsonResult['id'])),'devs')
+        return devsToDisplay
 
 
-    @app.route('/deleteDev')
+    @app.route('/deleteDev', methods=['DELETE'])
     def delete_confirm():
-        devManagement.deleteDev('nezout', 'Test 1')
-        return render_template_string("""
-            {%  block content %}
-                <h2> Dev supprime </h2>
-            {% endblock %}
-        """)
-
+        data = json.loads(request.get_data())
+        #collecting current project_id
+        projectId=int(data['project_id'])
+        #collecting uusername to Remove related user from project
+        username = data['username']
+        devManagement.deleteDev(username,projectId)
+        return "200"
     return app
 
 
@@ -168,4 +169,4 @@ def create_app():
 if __name__=='__main__':
 
     app = create_app()
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5001, debug=True)
