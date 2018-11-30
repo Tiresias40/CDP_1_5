@@ -4,7 +4,7 @@
 # - Using class-based configuration (instead of file-based configuration)
 # - Using string-based templates (instead of file-based templates)
 
-from flask import Flask, render_template_string, request, render_template, jsonify
+from flask import Flask, render_template_string, request, render_template, jsonify, redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask_user import login_required, UserManager, UserMixin
 import sys
@@ -14,6 +14,7 @@ sys.path.insert(1, os.getcwd()+"/templates")
 import database
 import projectManagement
 import devManagement
+import sprintManagement
 import json
 
 # Class-based application configuration
@@ -45,10 +46,7 @@ def create_app():
     db = SQLAlchemy(app)
 
     #include All models made on DB analysis step, setup Flask-User and specify the User data-model
-
-    db = database.initAllTables(db)
-
-
+    database.initAllTables(db)
 
     # Setup Flask-User and specify the User data-model
     user_manager = UserManager(app, db, database.User)
@@ -58,31 +56,6 @@ def create_app():
     def home_page():
         # String-based templates
         return render_template("index.html")
-
-    # The Members page is only accessible to authenticated users via the @login_required decorator
-    @app.route('/members')
-    @login_required    # User must be authenticated
-    def member_page():
-        # String-based templates
-        return render_template_string("""
-            {% extends "layout.html" %}
-            """)
-
-    #test including html pages from a template dir
-
-
-    @app.route('/issuesPage')
-    @login_required
-    def issues_page():
-        try:
-            issueList =[]
-            issue = issueManagement.getProjectWorkspace()
-            for issue in issues:
-                projectList.append(database.Serializer.serialize(pr))
-            projectList= str(projectList)
-        except Exception ,e:
-            print str(e)
-        return render_template("issues.html")
 
     @app.route('/projectsPage')
     @login_required
@@ -96,7 +69,7 @@ def create_app():
     def add_project():
         projectName = request.form['projectname']
         projectManagement.addProject(projectName)
-        newProject = projectManagement.getProjectByName(projectName)
+        newProject = projectManagement.getProject(projectName)
 
         return (database.Serializer.serialize(newProject))
 
@@ -161,7 +134,48 @@ def create_app():
         username = data['username']
         devManagement.deleteDev(username,projectId)
         return "200"
+
+    @app.route('/issuesPage')
+    @login_required
+    def issues_page():
+        try:
+            issueList =[]
+            issue = issueManagement.getProjectWorkspace()
+            for issue in issues:
+                projectList.append(database.Serializer.serialize(pr))
+            projectList = str(projectList)
+        except Exception as e:
+            str(e)
+        return render_template("issues.html")
+
+
+    @app.route('/sprintsPage')
+    @login_required
+    def sprints_page():
+        try:
+            sprints = sprintManagement.getSprints()
+        except Exception as e:
+            print(str(e))
+        return render_template("sprintManagement.html", sprintsContent=sprints)
+
+    @app.route('/addSprint', methods=['POST'])
+    def add_sprint():
+        sprint_begin_date = request.form['beginDate']
+        sprint_project_name = request.form['projectName']
+        sprintManagement.addSprint(sprint_project_name, sprint_begin_date)
+
+        return redirect('/sprintsPage')
+        # Can also do return redirect(url_for('sprints_page')) too if import url_for from flask
+
+    @app.route('/deleteSprint', methods=['DELETE'])
+    def delete_sprint():
+        sprint_id = request.form['sprintId']
+        sprintManagement.deleteSprint(sprint_id)
+
+        return redirect('/sprintsPage')
+
     return app
+
 
 
 

@@ -1,7 +1,8 @@
 # projectManagement.py
 from flask_sqlalchemy import SQLAlchemy
-import database
-from database import Project, db, Serializer
+from database import Project, Serializer
+
+db = SQLAlchemy()
 
 def addProject(projectName):
     newProject = Project(name=projectName)
@@ -9,27 +10,18 @@ def addProject(projectName):
     db.session.commit()
 
 # modify the Project currentId's name  to newName
-def modifyProjectNameById(currentId,  newName):
-    Project.query.filter_by(id=queryId).update({'name': name})
-
-# modify the Project currentId's name  to newName
 def modifyProjectNameByName(currentName,  newName):
-    Project.query.filter_by(name=currentName).update({'name': name})
+    Project.query.filter_by(name=currentName).first().update({'name': newName})
 
 def deleteProject(name):
-    projectToDelete = Project.query.filter_by(name=name)
+    projectToDelete = Project.query.filter_by(name=name).first()
     db.session.delete(projectToDelete)
     db.session.commit()
 
-def getProject(projectId):
-    queryResult = Project.query.filter_by(id=projectId).first()
-    return queryResult
-
-
-def getProjectByName(projectName):
+def getProject(projectName):
     queryResult = Project.query.filter_by(name=projectName).first()
     return queryResult
 
 def getProjectWorkspace():
-    queryResult =Project.query.all()
-    return (queryResult)
+    queryResult = Project.query.all()
+    return queryResult

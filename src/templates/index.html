@@ -2,12 +2,14 @@
 
 {% block content %}
 <div class="container">
-	<div class="jumbotron">
-		<h2>Home page</h2>
-		<p> Here is the home page</p>
+	<div class="jumbotron text-center">
+		<h2>Welcome 
+			{% if call_or_get(current_user.is_authenticated) %}
+			<span class="text-primary">{{ current_user.username }}</span>
+			{% endif %}
+			!
+		</h2>
+		<p>Sign in or Register in the top right corner !</p>
 	</div>
 </div>
-
-<p><a href={{ url_for('user.register') }}>Register</a></p>
-<p><a href={{ url_for('user.login') }}>Sign in</a></p>
 {% endblock %}

@@ -2,11 +2,9 @@
 
 from flask_user import  UserManager, UserMixin
 from flask_sqlalchemy import SQLAlchemy
-import uuid
 import json
 
 db = SQLAlchemy()
-
 
 class Serializer(object):
     @staticmethod
@@ -60,7 +58,7 @@ class Issue(db.Model):
 class Project(db.Model):
     __tablename__ = 'projects'
     id = db.Column( db.Integer, primary_key=True)
-    name = db.Column(db.String(20), nullable=False)
+    name = db.Column(db.String(20), nullable=False, unique=True)
     # foreign keys relationship usefull for simple query acces
     sprints = db.relationship('Sprint', backref='projects')
     issues = db.relationship('Issue', backref='projects')
@@ -80,6 +78,9 @@ class Sprint(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     begin_date = db.Column(db.DateTime())
     end_date = db.Column(db.DateTime())
+    # Column to add to identify which sprint we are talking about in a specific project
+    # id was too general since it was incr for every sprint of every project
+    # number = db.Column(db.Integer, nullable=False)
     project_id = db.Column(db.Integer, db.ForeignKey('projects.id'), nullable=False)
     tasks = db.relationship('Task', backref='sprints')
 
@@ -107,14 +108,9 @@ class Developers(db.Model):
     def __repr__(self):
         return 'Developer< project_id=%r, user_id=%r >' % (self.project_id, self.user_id)
 
-def initAllTables(db):
-
-
+def initAllTables(dbWithAppConfig):
     # Create all database tables
-    db.create_all()
-
-
-    return db
+    dbWithAppConfig.create_all()
 
 def dropAndDownSessionDB(db):    
     db.drop_all()
