@@ -149,7 +149,7 @@ def create_app():
             projectList = str(projectList)
         except Exception as e:
             str(e)
-        return render_template("issues.html", sprintsContent=sprintsList, projectId=project_id)
+        return render_template("issues.html", sprintsContent=sprintsList)
 
 
     @app.route('/addIssue')

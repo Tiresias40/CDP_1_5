@@ -1,10 +1,10 @@
 # projectManagement.py
 from flask_sqlalchemy import SQLAlchemy
-from database import Sprint, Serializer
+from database import Sprint, Serializer,db
 import projectManagement
 import datetime
 
-db = SQLAlchemy()
+
 
 def addSprint(projectName, beginDate):
 	endDate = datetime.datetime.strptime(beginDate, "%Y-%m-%d") + datetime.timedelta(days=15)
