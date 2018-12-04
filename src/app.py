@@ -76,18 +76,17 @@ def create_app():
 
     @app.route('/usersAvailable', methods=['POST'])
     def add_dev():
-        devs = devManagement.getUserWorkspace()
+
         devsAvailable="Empty"
         try:
+            devs = devManagement.getUserWorkspace()
             projectId = int(request.get_data())
-
             devsAlreadyAssigned = devManagement.getDevs(projectId)
-            print(str(devsAlreadyAssigned)+"okok")
-            for elt in devsAlreadyAssigned:
-                if elt in devs:
-                    devs.remove(elt)
+            for element in devsAlreadyAssigned:
+                for i in devs:
+                    if i.id==element.id:
+                        devs.remove(i)
             if len(devs) != 0:
-                print(str(devs)+"users dispo")
                 devsAvailable =listToJson(devs, 'devs')
         except Exception ,e:
             print str(e)
@@ -100,9 +99,8 @@ def create_app():
     def management_page():
 
         try:
-            project = projectManagement.getProject(6)
-            users = devManagement.getDevs(6)
-            print(str(users)+"devs deja Add")
+            project = projectManagement.getProjectById(3)
+            users = devManagement.getDevs(3)
         except Exception ,e:
             print str(e)
 
@@ -119,10 +117,13 @@ def create_app():
     def add_devs_project():
         devsResult = request.get_data()
         jsonResult =json.loads(devsResult)
+        currentProjectId = int(jsonResult['id'])
+        devsAdded =[]
         for elt in jsonResult['users']:
-            devManagement.addDev(int(jsonResult['id']), int(elt))
-        devsToDisplay = listToJson(devManagement.getDevs(int(jsonResult['id'])),'devs')
-        return devsToDisplay
+            devManagement.addDev(currentProjectId, int(elt))
+            devsAdded.append(devManagement.getUser(int(elt)))
+        devsAdded = listToJson(devsAdded,'devs')
+        return devsAdded
 
 
     @app.route('/deleteDev', methods=['DELETE'])
@@ -130,7 +131,7 @@ def create_app():
         data = json.loads(request.get_data())
         #collecting current project_id
         projectId=int(data['project_id'])
-        #collecting uusername to Remove related user from project
+        #collecting username to Remove related user from project
         username = data['username']
         devManagement.deleteDev(username,projectId)
         return "200"
@@ -139,21 +140,29 @@ def create_app():
     @login_required
     def issues_page():
         try:
+            #currentProjectId=request.get_data()
             issueList =[]
+            sprintsList =sprintManagement.getSprints(3)
             issue = issueManagement.getProjectWorkspace()
             for issue in issues:
                 projectList.append(database.Serializer.serialize(pr))
             projectList = str(projectList)
         except Exception as e:
             str(e)
-        return render_template("issues.html")
+        return render_template("issues.html", sprintsContent=sprintsList, projectId=project_id)
+
+
+    @app.route('/addIssue')
+    @login_required
+    def add_issue():
+        return ""
 
 
     @app.route('/sprintsPage')
     @login_required
     def sprints_page():
         try:
-            sprints = sprintManagement.getSprints()
+            sprints = sprintManagement.getSprints(3)
         except Exception as e:
             print(str(e))
         return render_template("sprintManagement.html", sprintsContent=sprints)
@@ -163,6 +172,7 @@ def create_app():
         sprint_begin_date = request.form['beginDate']
         sprint_project_name = request.form['projectName']
         sprintManagement.addSprint(sprint_project_name, sprint_begin_date)
+        #print(str(sprintManagement.getSprints()))
 
         return redirect('/sprintsPage')
         # Can also do return redirect(url_for('sprints_page')) too if import url_for from flask
@@ -174,6 +184,16 @@ def create_app():
 
         return redirect('/sprintsPage')
 
+    @app.route('/setCurrentProject', methods=['POST'])
+    def get_current_project_id():
+        currentProjectId=request.get_data()
+        return redirect('/'+currentProjectId+'/dashBoardPage')
+
+    @app.route('/<int:project_id>/dashBoardPage')
+    def init_dashboard(project_id):
+        currentProjectContent = projectManagement.getProjectById(project_id)
+        return render_template("dashboard.html", currentProjectContent=currentProjectContent)
+
     return app
 
 
@@ -183,4 +203,4 @@ def create_app():
 if __name__=='__main__':
 
     app = create_app()
-    app.run(host='0.0.0.0', port=5001, debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)

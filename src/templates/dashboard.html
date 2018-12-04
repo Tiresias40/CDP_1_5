@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container">
+  <div class="jumbotron">
+    <h1 class="text-center">Dashboard</h1>
+    <p class = "text-center">Project Id:<span id="currentProjectId">{{currentProjectContent.id}}</span></p>
+    <p class = "text-center">Project Name:<span id="currentProjectName">{{currentProjectContent.name}}</span></p>
+  </div>
+
+</div>
+{% endblock %}

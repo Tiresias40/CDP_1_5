@@ -18,6 +18,6 @@ def deleteSprint(sprintId):
 	db.session.delete(sprintToDelete)
 	db.session.commit()
 
-def getSprints(): #projectId in param later
-	queryResult = Sprint.query.all()
+def getSprints(projectId):
+	queryResult = Sprint.query.filter_by(project_id=projectId).all()
 	return queryResult

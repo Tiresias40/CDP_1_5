@@ -10,14 +10,71 @@
     <h1 class="text-center">Backlog</h1>
     <p class = "text-center">here you can see the backlog of your project and add an issue.</p>
   </div>
-    <h3> Ajout d'une nouvelle Issue au Backlog</h3>
-    <div class= "col-md-8" id = "addIssue">
-      <form method="Post" role="form">
-        <input type="text" id="issuename" name="issuename" class="form-control" required>
-        <button class="btn btn-lg btn-primary btn-block" type="button" >Ajouter une issue</button>
-      </form>
-      <br>
-    </div>
   </div>
+  <div class="container py-3">
+    <div class="row">
+        <div class="mx-auto col-sm-12">
+                    <!-- form user info -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="mb-0 text-center">Ajout d'une nouvelle Issue au Backlog </h4>
+                        </div>
+                        <div class="card-body">
+                            <form class="form" role="form" autocomplete="off">
+                                <div class="form-group row">
+                                    <label class="col-lg-3 col-form-label form-control-label">Description</label>
+                                    <div class="col-lg-9">
+                                        <input class="form-control" type="text" value="descrp not CRUD">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-lg-3 col-form-label form-control-label">Priorité</label>
+                                    <div class="col-lg-9">
+                                      <select class="form-control" id="prioritySelectOptions">
+                                        <option>HIGH</option>
+                                        <option>MEDIUM</option>
+                                        <option>LOW</option>
+                                      </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-lg-3 col-form-label form-control-label">Difficulté</label>
+                                    <div class="col-lg-9">
+                                        <input class="form-control" type="text" value="2">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                  <label class="col-lg-3 col-form-label form-control-label" >Choix du sprint</label>
+                                  <div class="col-lg-9">
+                                    <select class="form-control" id="sprintsSelectOptions">
+                                      {% for elt in sprintsContent %}
+                                      <option value="{{elt.id}}">Sprint {{elt.id}}</option>
+                                      {% endfor %}
+                                    </select>
+                                  </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-lg-3 col-form-label form-control-label">ID Projet</label>
+                                    <div class="col-lg-9">
+                                        <input class="form-control" type="text" value="ID Dans la barre de nav">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-lg-3 col-form-label form-control-label"></label>
+                                    <div class="col-lg-9">
+                                        <input type="reset" class="btn btn-secondary" value="Cancel">
+                                        <input type="button" class="btn btn-primary" value="Save Changes">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- /form user info -->
+              </div>
+          </div>
+      </div>
 
 {% endblock %}

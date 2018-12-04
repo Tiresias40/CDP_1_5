@@ -1,8 +1,8 @@
 # projectManagement.py
 from flask_sqlalchemy import SQLAlchemy
-from database import Project, Serializer
+from database import Project, Serializer, db
 
-db = SQLAlchemy()
+
 
 def addProject(projectName):
     newProject = Project(name=projectName)
@@ -20,6 +20,10 @@ def deleteProject(name):
 
 def getProject(projectName):
     queryResult = Project.query.filter_by(name=projectName).first()
+    return queryResult
+
+def getProjectById(projectId):
+    queryResult = Project.query.filter_by(id=projectId).first()
     return queryResult
 
 def getProjectWorkspace():

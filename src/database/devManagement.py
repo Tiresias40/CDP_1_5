@@ -1,18 +1,17 @@
 # devManagement.py
 
 from flask_sqlalchemy import SQLAlchemy
-from database import Developers, Project, User, Serializer
+from database import Developers, Project, User, Serializer,db
 
-db = SQLAlchemy()
 
 def addDev(projectId,userId):
     newDev = Developers(project_id=projectId, user_id=userId)
     db.session.add(newDev)
     db.session.commit()
 
-#def getUser(username):
-##    userId = User.query.filter_by(username=username).first().id
-#    dev = Developers.query.filter_by(user_id=userId).
+def getUser(userId):
+    queryResult = User.query.filter_by(id=userId).first()
+    return queryResult
 
 def getDevs(projectId):
     resDevs =(db.session.query(User).join(Developers, User.id==Developers.user_id)).filter_by(project_id=projectId).all()

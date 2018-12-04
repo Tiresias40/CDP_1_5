@@ -1,4 +1,4 @@
-$(function() {
+
     $('#addDevsModalButton').click(function() {
       var projectId = $('#projectId').text();
         $.ajax({
@@ -8,6 +8,7 @@ $(function() {
             success: function(response){
                 $('#modalTable tbody').empty();
                 if(response != "Empty"){
+                  console.log("ModalClick")
                   $('#modalDevsToAdd').prop("disabled",false);
                   var json = JSON.parse(response);
                   for(i in json.devs){
@@ -46,14 +47,10 @@ $(function() {
             data: res,
             type: 'POST',
             success: function(response){
-                $('#displayDevsTable table').empty();
-                $('#displayDevsTable table').append('<tr>	<th class="text-center">Username</th>	<th class="text-center">First Name</th>	<th class="text-center">Last Name</th>	<th class="text-center">Sort</th>	<th class="text-center">Action</th></tr>');
                 var json =response;
-                console.log(json.devs[0].username);
                 for(i in json.devs){
-                  $('#displayDevsTable table').append('<tr><td class="inputUsername pt-3-half">'+json.devs[i].username+'</td><td class="pt-3-half">'+json.devs[i].first_name+'</td><td class="pt-3-half">'+json.devs[i].last_name+'</td><td class="pt-3-half"><span class="table-up"><a href="#!" class="indigo-text"><i class="fas fa-long-arrow-up" aria-hidden="true"></i></a></span> <span class="table-down"><a href="#!" class="indigo-text"><i class="fas fa-long-arrow-down" aria-hidden="true"></i></a></span> </td> <td> <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span> </td></tr>');
+                  $('#displayDevsTable table').append('<tr><td class="inputUsername pt-3-half">'+json.devs[i].username+'</td><td>'+json.devs[i].first_name+'</td><td>'+json.devs[i].last_name+'</td><td class="pt-3-half"><span class="table-up"><a href="#!" class="indigo-text"><i class="fas fa-arrow-up" aria-hidden="true"></i></a></span> <span class="table-down"><a href="#!" class="indigo-text"><i class="fas fa-arrow-down" aria-hidden="true"></i></a></span> </td> <td> <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span> </td></tr>');
                 }
-
             },
             error: function(error) {
                 console.log(error);
@@ -63,18 +60,14 @@ $(function() {
 
     var $TABLE = $('#displayDevsTable');
     var $BTN = $('#export-btn');
-    var $EXPORT = $('#export');
 
-    $('.table-add').click(function () {
-    var $clone = $TABLE.find('tr.hide').clone(true).removeClass('hide table-line');
-    $TABLE.find('table').append($clone);
-    });
+
 
     $('.table-remove').click(function () {
-      $(this).parents('tr').detach();
       var username= '{"username": '+JSON.stringify($(this).parents('tr').find('.inputUsername').text())+',';
       var projectId = '"project_id": '+JSON.stringify($('#projectId').text())+'}';
       var res = username+projectId;
+      $(this).parents('tr').detach();
       $.ajax({
         url: '/deleteDev',
         dataType: 'json',
@@ -124,8 +117,4 @@ $(function() {
 
         data.push(h);
       });
-
-      // Output the result
-      $EXPORT.text(JSON.stringify(data));
     });
-  });

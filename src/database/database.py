@@ -38,6 +38,8 @@ class User(db.Model, UserMixin ):
     first_name = db.Column(db.String(100, collation='NOCASE'), nullable=False, server_default='')
     last_name = db.Column(db.String(100, collation='NOCASE'), nullable=False, server_default='')
 
+    def __repr__(self):
+        return 'User< id=%r, username=%s >' % (self.id, self.username)
 
 # Define the Issue data-model.
 # NB:
@@ -102,7 +104,7 @@ class Task(db.Model):
 
 class Developers(db.Model):
     __tablename__ = 'developers'
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True,unique=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True, unique=False)
     project_id = db.Column(db.Integer, db.ForeignKey('projects.id'), primary_key=True, unique=False)
 
     def __repr__(self):
@@ -112,5 +114,5 @@ def initAllTables(dbWithAppConfig):
     # Create all database tables
     dbWithAppConfig.create_all()
 
-def dropAndDownSessionDB(db):    
+def dropAndDownSessionDB(db):
     db.drop_all()

@@ -22,7 +22,7 @@
     <div class="col-md-8" id="addProject">
       <form method="Post" role="form">
         <input type="text" name="projectname" class="form-control" required>
-        <button class="btn btn-lg btn-primary btn-block" type="button" >Ajouter un projet</button>
+        <button class="btn btn-lg btn-primary btn-block addProject" type="button" >Ajouter un projet</button>
       </form>
       <br>
     </div>
@@ -50,9 +50,9 @@
             <h4 class="card-title">{{element.name}}</h4>
             <hr>
             <!-- Text -->
-    	      <p class="card-text">Id : {{element.id}}</p>
+    	      <p class="card-text" >Id : <span class="projectId">{{element.id}}</span></p>
 
-            <button class="btn btn-indigo btn-rounded btn-md">Choisir</button>
+            <button class="btn btn-indigo btn-rounded btn-md projectSelector">Choisir</button>
 
 
           </div>
