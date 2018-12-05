@@ -9,6 +9,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_user import login_required, UserManager, UserMixin
 import sys
 import os
+import socket
 sys.path.insert(0, os.getcwd()+"/database")
 sys.path.insert(1, os.getcwd()+"/templates")
 import database
@@ -67,31 +68,29 @@ def create_app():
 
     @app.route('/addProject', methods=['POST'])
     def add_project():
-        projectName = request.form['projectname']
-        projectManagement.addProject(projectName)
-        newProject = projectManagement.getProject(projectName)
+        project_name = request.form['projectname']
+        projectManagement.addProject(project_name)
+        new_project = projectManagement.getProject(project_name)
 
-        return (database.Serializer.serialize(newProject))
+        return (database.Serializer.serialize(new_project))
 
 
     @app.route('/usersAvailable', methods=['POST'])
     def add_dev():
-
-        devsAvailable="Empty"
         try:
             devs = devManagement.getUserWorkspace()
-            projectId = int(request.get_data())
-            devsAlreadyAssigned = devManagement.getDevs(projectId)
-            for element in devsAlreadyAssigned:
+            project_id = int(request.get_data())
+            devs_already_assigned = devManagement.getDevs(project_id)
+            for element in devs_already_assigned:
                 for i in devs:
-                    if i.id==element.id:
+                    if i.id == element.id:
                         devs.remove(i)
             if len(devs) != 0:
-                devsAvailable =listToJson(devs, 'devs')
-        except Exception ,e:
-            print str(e)
+                devs_available = listToJson(devs, 'devs')
+        except Exception as e:
+            print(str(e))
 
-        return devsAvailable
+        return devs_available
 
 
     @app.route('/managementPage')
@@ -101,29 +100,22 @@ def create_app():
         try:
             project = projectManagement.getProjectById(3)
             users = devManagement.getDevs(3)
-        except Exception ,e:
-            print str(e)
+        except Exception as e:
+            print(str(e))
 
         return render_template("devManagement.html", project=project, usersAdded=users)
 
-    def listToJson(list, listName):
-        res='{"'+listName+'" : ['
-        for elt in list:
-            res += database.Serializer.serialize(elt)+','
-        res = res[:-1]+']}'
-        return res
-
     @app.route('/addDevs', methods=['POST'])
     def add_devs_project():
-        devsResult = request.get_data()
-        jsonResult =json.loads(devsResult)
-        currentProjectId = int(jsonResult['id'])
-        devsAdded =[]
-        for elt in jsonResult['users']:
-            devManagement.addDev(currentProjectId, int(elt))
-            devsAdded.append(devManagement.getUser(int(elt)))
-        devsAdded = listToJson(devsAdded,'devs')
-        return devsAdded
+        devs_result = request.get_data()
+        json_result =json.loads(devs_result)
+        currentProjectId = int(json_result['id'])
+        devs_added =[]
+        for el in json_result['users']:
+            devManagement.addDev(current_project_id, int(el))
+            devs_added.append(devManagement.getUser(int(el)))
+        devs_added = list_to_json(devs_added,'devs')
+        return devs_added
 
 
     @app.route('/deleteDev', methods=['DELETE'])
@@ -138,18 +130,17 @@ def create_app():
 
     @app.route('/issuesPage')
     @login_required
+    #function unfinished
     def issues_page():
         try:
-            #currentProjectId=request.get_data()
-            issueList =[]
-            sprintsList =sprintManagement.getSprints(3)
-            issue = issueManagement.getProjectWorkspace()
-            for issue in issues:
-                projectList.append(database.Serializer.serialize(pr))
-            projectList = str(projectList)
+            sprints_list = sprintManagement.getSprints(3)
+            issue_list = issueManagement.getProjectWorkspace()
+            for issue in issue_list:
+                project_list.append(database.Serializer.serialize(issue))
+            project_list = str(project_list)
         except Exception as e:
-            str(e)
-        return render_template("issues.html", sprintsContent=sprintsList)
+            print(str(e))
+        return render_template("issues.html", sprintsContent=sprints_list)
 
 
     @app.route('/addIssue')
@@ -186,15 +177,22 @@ def create_app():
 
     @app.route('/setCurrentProject', methods=['POST'])
     def get_current_project_id():
-        currentProjectId=request.get_data()
+        current_roject_id=request.get_data()
         return redirect('/'+currentProjectId+'/dashBoardPage')
 
     @app.route('/<int:project_id>/dashBoardPage')
     def init_dashboard(project_id):
-        currentProjectContent = projectManagement.getProjectById(project_id)
-        return render_template("dashboard.html", currentProjectContent=currentProjectContent)
+        current_project_content = projectManagement.getProjectById(project_id)
+        return render_template("dashboard.html", currentProjectContent=current_project_content)
 
     return app
+
+def list_to_json(list, list_name):
+    res='{"'+list_name+'" : ['
+    for elt in list:
+        res += database.Serializer.serialize(elt)+','
+    res = res[:-1]+']}'
+    return res
 
 
 
@@ -202,5 +200,6 @@ def create_app():
 # Start development web server
 if __name__=='__main__':
 
+    ip_address = socket.gethostbyname(socket.gethostname())
     app = create_app()
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host=ip_address, port=5000, debug=True)
