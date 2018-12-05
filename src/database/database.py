@@ -110,9 +110,9 @@ class Developers(db.Model):
     def __repr__(self):
         return 'Developer< project_id=%r, user_id=%r >' % (self.project_id, self.user_id)
 
-def initAllTables(dbWithAppConfig):
+def init_all_tables(db_with_app_config):
     # Create all database tables
-    dbWithAppConfig.create_all()
+    db_with_app_config.create_all()
 
-def dropAndDownSessionDB(db):
+def drop_and_down_session_db(db):
     db.drop_all()

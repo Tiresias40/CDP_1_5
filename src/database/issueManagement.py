@@ -7,26 +7,26 @@ from database import Issue, db, Serializer
 
 
 #
-def addIssue(desc, priority, diff, sprintId,projectId):
-    newIssue = Issue(description=desc, priority=priority, difficulty=diff, sprint_id=sprintId, project_id=projectId)
-    db.session.add(newIssue)
+def add_issue(desc, priority, diff, sprint_id,project_id):
+    new_issue = Issue(description=desc, priority=priority, difficulty=diff, sprint_id=sprint_id, project_id=project_id)
+    db.session.add(new_issue)
     db.session.commit()
 
-def getIssue(id):
-    resultIssue =Issue.query.filter_by(id=id)
-    return resultIssue.first()
+def get_issue(id):
+    result_issue =Issue.query.filter_by(id=id)
+    return result_issue.first()
 #
-def modifyIssue(currentIssueId, desc, priority, diff, sprintId,projectId):
-    currentIssue = getIssue(currentIssueId)
-    currentIssue.description =desc
-    currentIssue.priority = priority
-    currentIssue.difficulty =diff
-    currentIssue.sprint_id=sprintId
-    currentIssue.project_id = projectId
+def modify_issue(current_issue_id, desc, priority, diff, sprint_id,project_id):
+    current_issue = get_issue(current_issue_id)
+    current_issue.description =desc
+    current_issue.priority = priority
+    current_issue.difficulty =diff
+    current_issue.sprint_id=sprint_id
+    current_issue.project_id = project_id
     db.session.commit()
 
 #
-def deleteIssue(issueID):
-    issueToDelete =  getIssue(issueID)
-    db.session.delete(issueToDelete)
+def delete_issue(issue_id):
+    issue_to_delete =  get_issue(issue_id)
+    db.session.delete(issue_to_delete)
     db.session.commit()

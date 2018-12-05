@@ -6,18 +6,18 @@ import datetime
 
 
 
-def addSprint(projectName, beginDate):
-	endDate = datetime.datetime.strptime(beginDate, "%Y-%m-%d") + datetime.timedelta(days=15)
-	sprint_project = projectManagement.getProject(projectName)
-	newSprint = Sprint(project_id=sprint_project.id, begin_date=datetime.datetime.strptime(beginDate, "%Y-%m-%d"), end_date=endDate)
+def add_sprint(project_name, begin_date):
+	end_date = datetime.datetime.strptime(begin_date, "%Y-%m-%d") + datetime.timedelta(days=15)
+	sprint_project = projectManagement.get_project(project_name)
+	new_sprint = Sprint(project_id=sprint_project.id, begin_date=datetime.datetime.strptime(begin_date, "%Y-%m-%d"), end_date=end_date)
 	db.session.add(newSprint)
 	db.session.commit()
 
-def deleteSprint(sprintId):
-	sprintToDelete = Sprint.query.filter_by(id=sprintId).first()
-	db.session.delete(sprintToDelete)
+def delete_sprint(sprint_id):
+	sprint_to_delete = Sprint.query.filter_by(id=sprint_id).first()
+	db.session.delete(sprint_to_delete)
 	db.session.commit()
 
-def getSprints(projectId):
-	queryResult = Sprint.query.filter_by(project_id=projectId).all()
-	return queryResult
+def get_sprints(project_id):
+	query_result = Sprint.query.filter_by(project_id=project_id).all()
+	return query_result

@@ -47,7 +47,7 @@ def create_app():
     db = SQLAlchemy(app)
 
     #include All models made on DB analysis step, setup Flask-User and specify the User data-model
-    database.initAllTables(db)
+    database.init_all_tables(db)
 
     # Setup Flask-User and specify the User data-model
     user_manager = UserManager(app, db, database.User)
