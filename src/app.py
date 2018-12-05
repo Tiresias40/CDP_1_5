@@ -61,7 +61,7 @@ def create_app():
     @app.route('/projectsPage')
     @login_required
     def projects_page():
-        projects = projectManagement.getProjectWorkspace()
+        projects = projectManagement.get_project_workspace()
 
         return render_template("projectManagement.html", projectsContent = projects)
 
@@ -69,8 +69,8 @@ def create_app():
     @app.route('/addProject', methods=['POST'])
     def add_project():
         project_name = request.form['projectname']
-        projectManagement.addProject(project_name)
-        new_project = projectManagement.getProject(project_name)
+        projectManagement.add_project(project_name)
+        new_project = projectManagement.get_project(project_name)
 
         return (database.Serializer.serialize(new_project))
 
@@ -98,7 +98,7 @@ def create_app():
     def management_page():
 
         try:
-            project = projectManagement.getProjectById(3)
+            project = projectManagement.get_project_by_id(3)
             users = devManagement.getDevs(3)
         except Exception as e:
             print(str(e))
@@ -109,7 +109,7 @@ def create_app():
     def add_devs_project():
         devs_result = request.get_data()
         json_result =json.loads(devs_result)
-        currentProjectId = int(json_result['id'])
+        current_project_id = int(json_result['id'])
         devs_added =[]
         for el in json_result['users']:
             devManagement.addDev(current_project_id, int(el))
@@ -122,10 +122,10 @@ def create_app():
     def delete_confirm():
         data = json.loads(request.get_data())
         #collecting current project_id
-        projectId=int(data['project_id'])
+        project_id = int(data['project_id'])
         #collecting username to Remove related user from project
         username = data['username']
-        devManagement.deleteDev(username,projectId)
+        devManagement.deleteDev(username, project_id)
         return "200"
 
     @app.route('/issuesPage')
@@ -166,7 +166,6 @@ def create_app():
         #print(str(sprintManagement.getSprints()))
 
         return redirect('/sprintsPage')
-        # Can also do return redirect(url_for('sprints_page')) too if import url_for from flask
 
     @app.route('/deleteSprint', methods=['DELETE'])
     def delete_sprint():
@@ -177,12 +176,12 @@ def create_app():
 
     @app.route('/setCurrentProject', methods=['POST'])
     def get_current_project_id():
-        current_roject_id=request.get_data()
-        return redirect('/'+currentProjectId+'/dashBoardPage')
+        current_project_id = request.get_data()
+        return redirect('/'+current_project_id+'/dashBoardPage')
 
     @app.route('/<int:project_id>/dashBoardPage')
     def init_dashboard(project_id):
-        current_project_content = projectManagement.getProjectById(project_id)
+        current_project_content = projectManagement.get_project_by_id(project_id)
         return render_template("dashboard.html", currentProjectContent=current_project_content)
 
     return app

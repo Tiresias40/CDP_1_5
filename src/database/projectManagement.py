@@ -4,28 +4,27 @@ from database import Project, Serializer, db
 
 
 
-def addProject(projectName):
-    newProject = Project(name=projectName)
+def add_project(project_name):
+    new_project = Project(name=project_name)
     db.session.add(newProject)
     db.session.commit()
 
-# modify the Project currentId's name  to newName
-def modifyProjectNameByName(currentName,  newName):
-    Project.query.filter_by(name=currentName).first().update({'name': newName})
+def modify_project_name(current_name, new_name):
+    Project.query.filter_by(name=current_name).first().update({'name': new_name})
 
-def deleteProject(name):
-    projectToDelete = Project.query.filter_by(name=name).first()
+def delete_project(name):
+    project_to_delete = Project.query.filter_by(name=name).first()
     db.session.delete(projectToDelete)
     db.session.commit()
 
-def getProject(projectName):
-    queryResult = Project.query.filter_by(name=projectName).first()
-    return queryResult
+def get_project(project_name):
+    query_result = Project.query.filter_by(name=project_name).first()
+    return query_result
 
-def getProjectById(projectId):
-    queryResult = Project.query.filter_by(id=projectId).first()
-    return queryResult
+def get_project_by_id(project_id):
+    query_result = Project.query.filter_by(id=project_id).first()
+    return query_result
 
-def getProjectWorkspace():
-    queryResult = Project.query.all()
-    return queryResult
+def get_project_workspace():
+    query_result = Project.query.all()
+    return query_result
