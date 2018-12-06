@@ -78,9 +78,9 @@ def create_app():
     @app.route('/usersAvailable', methods=['POST'])
     def add_dev():
         try:
-            devs = devManagement.getUserWorkspace()
+            devs = devManagement.get_user_workspace()
             project_id = int(request.get_data())
-            devs_already_assigned = devManagement.getDevs(project_id)
+            devs_already_assigned = devManagement.get_devs(project_id)
             for element in devs_already_assigned:
                 for i in devs:
                     if i.id == element.id:
@@ -99,7 +99,7 @@ def create_app():
 
         try:
             project = projectManagement.get_project_by_id(3)
-            users = devManagement.getDevs(3)
+            users = devManagement.get_devs(3)
         except Exception as e:
             print(str(e))
 
@@ -112,8 +112,8 @@ def create_app():
         current_project_id = int(json_result['id'])
         devs_added =[]
         for el in json_result['users']:
-            devManagement.addDev(current_project_id, int(el))
-            devs_added.append(devManagement.getUser(int(el)))
+            devManagement.add_dev(current_project_id, int(el))
+            devs_added.append(devManagement.get_user(int(el)))
         devs_added = list_to_json(devs_added,'devs')
         return devs_added
 
@@ -125,7 +125,7 @@ def create_app():
         project_id = int(data['project_id'])
         #collecting username to Remove related user from project
         username = data['username']
-        devManagement.deleteDev(username, project_id)
+        devManagement.delete_dev(username, project_id)
         return "200"
 
     @app.route('/issuesPage')
@@ -133,8 +133,8 @@ def create_app():
     #function unfinished
     def issues_page():
         try:
-            sprints_list = sprintManagement.getSprints(3)
-            issue_list = issueManagement.getProjectWorkspace()
+            sprints_list = sprintManagement.get_sprints(3)
+            issue_list = issueManagement.get_project_workspace()
             for issue in issue_list:
                 project_list.append(database.Serializer.serialize(issue))
             project_list = str(project_list)
@@ -153,7 +153,7 @@ def create_app():
     @login_required
     def sprints_page():
         try:
-            sprints = sprintManagement.getSprints(3)
+            sprints = sprintManagement.get_sprints(3)
         except Exception as e:
             print(str(e))
         return render_template("sprintManagement.html", sprintsContent=sprints)
@@ -162,7 +162,7 @@ def create_app():
     def add_sprint():
         sprint_begin_date = request.form['beginDate']
         sprint_project_name = request.form['projectName']
-        sprintManagement.addSprint(sprint_project_name, sprint_begin_date)
+        sprintManagement.add_sprint(sprint_project_name, sprint_begin_date)
         #print(str(sprintManagement.getSprints()))
 
         return redirect('/sprintsPage')
@@ -170,7 +170,7 @@ def create_app():
     @app.route('/deleteSprint', methods=['DELETE'])
     def delete_sprint():
         sprint_id = request.form['sprintId']
-        sprintManagement.deleteSprint(sprint_id)
+        sprintManagement.delete_sprint(sprint_id)
 
         return redirect('/sprintsPage')
 

@@ -13,7 +13,7 @@
 			<ul class="nav navbar-nav ml-auto">
 				{% if call_or_get(current_user.is_authenticated) %}
 				<li class="nav-item"><a class="nav-link" href={{ url_for('user.edit_user_profile') }}>{{ current_user.username }}</a></li>
-				<li class="nav-item"><a class="nav-link" href={{ url_for('user.logout') }}>Sign out<!--<span class="glyphicon glyphicon-off" aria-hidden="true"></span>--></a></li>
+				<li class="nav-item"><a class="nav-link" href={{ url_for('user.logout') }}>Sign out</a></li>
 				{% else %}
 				<li class="nav-item"><a class="nav-link" href={{ url_for('user.login') }}>Sign in</a></li>
 				<li class="nav-item"><a class="nav-link" href={{ url_for('user.register') }}>Register</a></li>
