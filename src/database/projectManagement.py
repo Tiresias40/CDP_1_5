@@ -6,7 +6,7 @@ from database import Project, Serializer, db
 
 def add_project(project_name):
     new_project = Project(name=project_name)
-    db.session.add(newProject)
+    db.session.add(new_project)
     db.session.commit()
 
 def modify_project_name(current_name, new_name):
@@ -14,7 +14,7 @@ def modify_project_name(current_name, new_name):
 
 def delete_project(name):
     project_to_delete = Project.query.filter_by(name=name).first()
-    db.session.delete(projectToDelete)
+    db.session.delete(project_to_delete)
     db.session.commit()
 
 def get_project(project_name):

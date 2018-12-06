@@ -11,7 +11,7 @@
                   console.log("ModalClick")
                   $('#modalDevsToAdd').prop("disabled",false);
                   var json = JSON.parse(response);
-                  for(i in json.devs){
+                  for(let i in json.devs){
                     $('.modal-body table tbody').append('<tr><td>  <input type="checkbox" class="checkboxUsers" name="fancy-checkbox-default" autocomplete="off" value="'+json.devs[i].id+'" /></td><td>'+json.devs[i].id+'</td><td>'+json.devs[i].username+'</td><td>'+json.devs[i].first_name+'</td><td>'+json.devs[i].last_name+'</td></tr>');
                   }
                 }
@@ -48,7 +48,7 @@
             type: 'POST',
             success: function(response){
                 var json =response;
-                for(i in json.devs){
+                for(let i in json.devs){
                   $('#displayDevsTable table').append('<tr><td class="inputUsername pt-3-half">'+json.devs[i].username+'</td><td>'+json.devs[i].first_name+'</td><td>'+json.devs[i].last_name+'</td><td class="pt-3-half"><span class="table-up"><a href="#!" class="indigo-text"><i class="fas fa-arrow-up" aria-hidden="true"></i></a></span> <span class="table-down"><a href="#!" class="indigo-text"><i class="fas fa-arrow-down" aria-hidden="true"></i></a></span> </td> <td> <span class="table-remove"><button type="button" class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span> </td></tr>');
                 }
             },
@@ -99,7 +99,6 @@
     $BTN.click(function () {
       var $rows = $TABLE.find('tr:not(:hidden)');
       var headers = [];
-      var data = [];
 
       // Get the headers (add special header logic here)
       $($rows.shift()).find('th:not(:empty)').each(function () {

@@ -111,7 +111,7 @@ if (typeof jQuery === 'undefined') {
 			                    //}
 			                },
 			                error: function () {
-			                    alert("Invaild URL!");
+			                    console.log("Invalid URL!");
 			                }
 			            });
 
@@ -330,7 +330,7 @@ if (typeof jQuery === 'undefined') {
 		            });
 		        }
 		        // Display message if results are empty
-		        if (data.length == 0) {
+		        if (data == null || data.length == 0) {
 		            var cell = tbody.insertRow()//.insertCell();
 		            cell.innerHTML = '<td colspan="2">No records.</td>';
 		        }
