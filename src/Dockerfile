@@ -1,6 +1,5 @@
 # Use an official Python runtime as a parent image
 FROM python:2.7-slim
-FROM openjdk:8
 
 # Copy the current directory contents into the container at /app
 COPY . /app
@@ -11,20 +10,6 @@ WORKDIR /app
 
 # Install any needed packages specified in requirements.txt
 RUN pip install --trusted-host pypi.python.org -r requirements.txt
-RUN apt-get update
-RUN apt-get install -y curl git tmux htop maven sudo
-
-# Install Node - allows for scanning of Typescript
-RUN curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
-RUN sudo apt-get install -y nodejs build-essential
-
-RUN curl --insecure -o ./sonarscanner.zip -L https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.2.0.1227-linux.zip
-RUN unzip sonarscanner.zip
-RUN rm sonarscanner.zip
-RUN mv sonar-scanner-3.2.0.1227-linux sonar-scanner
-
-ENV SONAR_RUNNER_HOME=/root/sonar-scanner
-ENV PATH $PATH:/root/sonar-scanner/bin
 
 # Make port 5000 available to the world outside this container
 EXPOSE 5000
@@ -32,11 +17,5 @@ EXPOSE 5000
 # Define environment variable
 ENV NAME World
 
-
-COPY sonar-runner.properties ./sonar-scanner/conf/sonar-scanner.properties
-
-# Use bash if you want to run the environment from inside the shell, otherwise use the command that actually runs the underlying stuff
-#CMD /bin/bash
-CMD sonar-scanner -Dsonar.projectBaseDir=./src
 # Run app.py when the container launches
 CMD ["python", "app.py"]

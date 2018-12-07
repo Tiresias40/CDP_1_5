@@ -8,14 +8,9 @@ services:
 
 addons:
   chrome: stable
-  sonarcloud:
-    organization: "Tiresias40_CDP_1_5" # the key of the org you chose at step #3
-    token:
-      secure: 481ca4cc3f86ab982b06fff5e6f53d22a465b4a3 # encrypted value of your token
 
 before_install:
   - docker run -t -d -p 5000:5000 leduclouis/cdp1.5:0.2
-  - docker run -ti -v $(pwd):/root/src zaquestion/sonarqube-scanner
   - google-chrome-stable --headless --disable-gpu
 
 install:
@@ -24,4 +19,3 @@ install:
 
 script:
 - selenium-side-runner -c "chromeOptions.args=[headless]" testEnv/*.side
-- sonar-scanner
