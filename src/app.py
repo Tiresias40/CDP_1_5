@@ -85,7 +85,7 @@ def create_app():
                     if i.id == element.id:
                         devs.remove(i)
             if len(devs) != 0:
-                devs_available = listToJson(devs, 'devs')
+                devs_available = list_to_json(devs, 'devs')
         except Exception as e:
             print(str(e))
 
