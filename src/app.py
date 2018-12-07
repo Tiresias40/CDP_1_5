@@ -9,7 +9,6 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_user import login_required, UserManager, UserMixin
 import sys
 import os
-import socket
 sys.path.insert(0, os.getcwd()+"/database")
 sys.path.insert(1, os.getcwd()+"/templates")
 import database
@@ -199,6 +198,6 @@ def list_to_json(list, list_name):
 # Start development web server
 if __name__=='__main__':
 
-    ip_address = socket.gethostbyname(socket.gethostname())
+    ip_address = '0.0.0.0'
     app = create_app()
     app.run(host=ip_address, port=5000, debug=True)

@@ -88,13 +88,11 @@ Exécuter l'image docker de la première release sur sa machine
 ```
 docker run -p 5000:5000 leduclouis/cdp1.5:0.2
 ```
-Lancer ensuite un navigateur et taper l'ip indiquée dans le terminal par la ligne :
-
- * Running on http://<IP>:5000/ (Press CTRL+C to quit)
+Lancer ensuite un navigateur à l'adresse localhost:5000
   
 
 # Tests :
 
-Les tests Selenium s'executent automatiquement par travis lors d'un nouveau commit sur le projet.
-Ils sont donc effectués sur la dernière version du projets, sont datés et un code couleur nous indique si les tests sont passés ou non
+Les tests Selenium s'exécutent automatiquement grâce à Travis lorsqu'un commit est fait sur le projet.
+Ils sont donc effectués sur la dernière version du projet, sont datés et un code couleur nous indique s'ils sont passés ou non.
 
