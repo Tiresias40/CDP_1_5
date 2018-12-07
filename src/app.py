@@ -4,7 +4,7 @@
 # - Using class-based configuration (instead of file-based configuration)
 # - Using string-based templates (instead of file-based templates)
 
-from flask import Flask, render_template_string, request, render_template, jsonify, redirect
+from flask import Flask, render_template_string, request, render_template, jsonify, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_user import login_required, UserManager, UserMixin
 import sys
@@ -15,6 +15,7 @@ import database
 import projectManagement
 import devManagement
 import sprintManagement
+import issueManagement
 import json
 
 # Class-based application configuration
@@ -92,13 +93,14 @@ def create_app():
         return devs_available
 
 
-    @app.route('/managementPage')
+    @app.route('/projects/id/<project_id>/managementPage')
     @login_required
-    def management_page():
+    def management_page(project_id):
 
         try:
-            project = projectManagement.get_project_by_id(3)
-            users = devManagement.get_devs(3)
+            print(project_id+" YOUHOU")
+            project = projectManagement.get_project_by_id(int(project_id))
+            users = devManagement.get_devs(int(project_id))
         except Exception as e:
             print(str(e))
 
@@ -127,19 +129,17 @@ def create_app():
         devManagement.delete_dev(username, project_id)
         return "200"
 
-    @app.route('/issuesPage')
+    @app.route('/projects/id/<project_id>/issuesPage')
     @login_required
     #function unfinished
-    def issues_page():
+    def issues_page(project_id):
+        project_id=int(project_id)
         try:
-            sprints_list = sprintManagement.get_sprints(3)
-            issue_list = issueManagement.get_project_workspace()
-            for issue in issue_list:
-                project_list.append(database.Serializer.serialize(issue))
-            project_list = str(project_list)
+            sprints_list = sprintManagement.get_sprints(project_id)
+
         except Exception as e:
             print(str(e))
-        return render_template("issues.html", sprintsContent=sprints_list)
+        return render_template("issues.html", sprintsContent=sprints_list, project_id=project_id)
 
 
     @app.route('/addIssue')
@@ -148,22 +148,20 @@ def create_app():
         return ""
 
 
-    @app.route('/sprintsPage')
+    @app.route('/projects/id/<project_id>/sprintsPage')
     @login_required
-    def sprints_page():
+    def sprints_page(project_id):
         try:
-            sprints = sprintManagement.get_sprints(3)
+            sprints = sprintManagement.get_sprints(int(project_id))
         except Exception as e:
             print(str(e))
         return render_template("sprintManagement.html", sprintsContent=sprints)
 
-    @app.route('/addSprint', methods=['POST'])
-    def add_sprint():
+    @app.route('/projects/id/<project_id>/addSprint', methods=['POST'])
+    def add_sprint(project_id):
         sprint_begin_date = request.form['beginDate']
         sprint_project_name = request.form['projectName']
         sprintManagement.add_sprint(sprint_project_name, sprint_begin_date)
-        #print(str(sprintManagement.getSprints()))
-
         return redirect('/sprintsPage')
 
     @app.route('/deleteSprint', methods=['DELETE'])
@@ -173,14 +171,10 @@ def create_app():
 
         return redirect('/sprintsPage')
 
-    @app.route('/setCurrentProject', methods=['POST'])
-    def get_current_project_id():
-        current_project_id = request.get_data()
-        return redirect('/'+current_project_id+'/dashBoardPage')
 
-    @app.route('/<int:project_id>/dashBoardPage')
+    @app.route('/projects/id/<project_id>')
     def init_dashboard(project_id):
-        current_project_content = projectManagement.get_project_by_id(project_id)
+        current_project_content = projectManagement.get_project_by_id(int(project_id))
         return render_template("dashboard.html", currentProjectContent=current_project_content)
 
     return app

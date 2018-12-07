@@ -34,16 +34,7 @@ $(function() {
 
       $('.projectSelector').click(function() {
         var currentProjectId = $(this).prev().children('.projectId').text();
-        $.ajax({
-              url: '/setCurrentProject',
-              data: currentProjectId,
-              type: 'POST',
-              success: function(response){
-
-              },
-              error: function(error) {
-                  console.log(error);
-              }
-          });
-      });
+        const pathUrl ='/projects/id/'+currentProjectId;
+        $(location).attr('href',pathUrl);
+    });
 });
