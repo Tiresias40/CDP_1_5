@@ -98,7 +98,6 @@ def create_app():
     def management_page(project_id):
 
         try:
-            print(project_id+" YOUHOU")
             project = projectManagement.get_project_by_id(int(project_id))
             users = devManagement.get_devs(int(project_id))
         except Exception as e:
@@ -136,10 +135,10 @@ def create_app():
         project_id=int(project_id)
         try:
             sprints_list = sprintManagement.get_sprints(project_id)
-
+            project_content = projectManagement.get_project_by_id(project_id)
         except Exception as e:
             print(str(e))
-        return render_template("issues.html", sprintsContent=sprints_list, project_id=project_id)
+        return render_template("issues.html", sprintsContent=sprints_list, currentProjectContent=project_content)
 
 
     @app.route('/addIssue')
@@ -151,17 +150,22 @@ def create_app():
     @app.route('/projects/id/<project_id>/sprintsPage')
     @login_required
     def sprints_page(project_id):
+        project_id=int(project_id)
         try:
-            sprints = sprintManagement.get_sprints(int(project_id))
+            sprints = sprintManagement.get_sprints(project_id)
+            project_content= projectManagement.get_project_by_id(project_id)
         except Exception as e:
-            print(str(e))
-        return render_template("sprintManagement.html", sprintsContent=sprints)
+            db.session.rollback()
+        return render_template("sprintManagement.html", sprintsContent=sprints, currentProjectContent=project_content)
 
     @app.route('/projects/id/<project_id>/addSprint', methods=['POST'])
     def add_sprint(project_id):
-        sprint_begin_date = request.form['beginDate']
-        sprint_project_name = request.form['projectName']
-        sprintManagement.add_sprint(sprint_project_name, sprint_begin_date)
+        try:
+            sprint_begin_date = request.form['beginDate']
+            sprint_project_name = request.form['projectName']
+            sprintManagement.add_sprint(sprint_project_name, sprint_begin_date)
+        except Exception ,e:
+            db.session.rollback()
         return redirect('/sprintsPage')
 
     @app.route('/deleteSprint', methods=['DELETE'])
