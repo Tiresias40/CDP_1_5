@@ -95,6 +95,7 @@ Lancer ensuite un navigateur à l'adresse localhost:5000
 
 Les tests Selenium s'exécutent automatiquement grâce à Travis lorsqu'un commit est fait sur le projet.
 Ils sont donc effectués sur la dernière version du projet, sont datés et un code couleur nous indique s'ils sont passés ou non.
+Concernant les **test unitaires**, il ne semble pas pertinent de les réaliser pour notre projet. 
 
 # Clean Code :
 
