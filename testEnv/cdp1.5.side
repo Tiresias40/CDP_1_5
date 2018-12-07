@@ -14,13 +14,6 @@
       "targets": [],
       "value": ""
     }, {
-      "id": "83717d87-ef80-4500-8657-3890f6c62e9b",
-      "comment": "",
-      "command": "setWindowSize",
-      "target": "",
-      "targets": [],
-      "value": ""
-    }, {
       "id": "aedf2bfa-4207-4cdb-a1fd-2aa4d509cd75",
       "comment": "",
       "command": "close",
