@@ -801,7 +801,7 @@
     "persistSession": false,
     "parallel": false,
     "timeout": 300,
-    "tests": []
+    "tests": ["f4c1b1d4-2ed2-4384-ac9a-b6ebed8be8dd"]
   }],
   "urls": ["http://localhost:5000/", "http://localhost:5000/projectsPage"],
   "plugins": []
