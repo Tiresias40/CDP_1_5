@@ -534,7 +534,7 @@
     "persistSession": false,
     "parallel": false,
     "timeout": 300,
-    "tests": ["0d1ff522-e918-4282-b42c-ee4a7af948d6"]
+    "tests": ["0d1ff522-e918-4282-b42c-ee4a7af948d6", "b9829fa4-31c8-4435-9fd1-80963faa2c3b", "c2c19d55-b864-44e6-821c-73ecc0a6036d", "507e8bd8-d5af-4969-8e80-dc9950a250d6"]
   }],
   "urls": ["http://localhost:5000/", "http://localhost:5000/projectsPage"],
   "plugins": []
